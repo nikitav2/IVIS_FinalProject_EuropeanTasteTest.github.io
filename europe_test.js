@@ -95,41 +95,17 @@ d3.json("europe.json", (json) => {
     .attr("opacity", 0.5);
 });
 
-// d3.csv("europe_capitals.csv", (json) => {
-//   //Binding data and creating one path per GeoJSON feature
-//   svg
-//     .selectAll("path")
-//     .data(json.features)
-//     .enter()
-//     .append("path")
-//     .attr("d", path)
-//     .attr("stroke", "black")
-//     .attr("fill", "black");
+var zoom = d3.behavior.zoom().on("zoom", function () {
+  g.attr(
+    "transform",
+    "translate(" +
+      d3.event.translate.join(",") +
+      ")scale(" +
+      d3.event.scale +
+      ")"
+  );
+  g.selectAll("circle").attr("d", path.projection(projection));
+  g.selectAll("path").attr("d", path.projection(projection));
+});
 
-//   //States
-//   svg
-//     .selectAll("text")
-//     .data(json.features)
-//     .enter()
-//     .append("text")
-//     .attr("fill", "darkslategray")
-//     .attr("transform", (d) => {
-//       return "translate(" + path.centroid(d) + ")";
-//     })
-//     .attr("text-anchor", "middle")
-//     .attr("dy", ".35em")
-//     .text((d) => {
-//       return d.properties.name;
-//     });
-
-//   //Append the name
-//   svg
-//     .append("text")
-//     .attr("x", 0)
-//     .attr("y", 340)
-//     .attr("font-size", 90)
-//     .attr("font-weight", "bold")
-//     .attr("font-family", "Times New Roman")
-//     .attr("text-anchor", "middle")
-//     .attr("opacity", 0.5);
-// });
+svg.call(zoom);
