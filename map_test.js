@@ -62,3 +62,67 @@ d3.json("aust.json", (json) => {
     .attr("text-anchor", "middle")
     .attr("opacity", 0.5);
 });
+
+d3.csv("australia_data.csv", (data) => {
+  // Create a color scale
+  let color = d3.scale.category20();
+
+  // Add a scale for bubble size
+  let valueExtent = d3.extent(data, (d) => {
+    return +d.n;
+  });
+  let size = d3
+    .scaleSqrt()
+    .domain(valueExtent) // What's in the data
+    .range([1, 20]); // Size of circle in pixel
+
+  let tooltip = d3
+    .select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("text-align", "center")
+    .style("padding", "15px")
+    .style("font", "12px sans-serif")
+    .style("background", "#03bafc")
+    .style("border", "0px")
+    .style("border-radius", "8px")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .text("a simple tooltip");
+  svg
+    .selectAll("myCircles")
+    .data(
+      data
+        .sort((a, b) => {
+          return +b.n - +a.n;
+        })
+        .filter((d, i) => {
+          return i < 1000;
+        })
+    )
+    .enter()
+    .append("circle")
+    .attr("cx", (d) => {
+      return projection([+d.homelon, +d.homelat])[0];
+    })
+    .attr("cy", (d) => {
+      return projection([+d.homelon, +d.homelat])[1];
+    })
+    .attr("r", (d) => {
+      return size(+d.n + 1) + 2;
+    })
+    .style("fill", (d) => {
+      return color(d.state);
+    })
+    .attr("stroke-width", 1)
+    .attr("fill-opacity", 0.6)
+    .on("mouseover", () => {
+      return tooltip.style("visibility", "visible");
+    })
+    .on("mousemove", (d) => {
+      tooltip.text(d.city + " (" + d.n + " Population)");
+      return tooltip
+        .style("top", d3.event.pageY - 10 + "px")
+        .style("left", d3.event.pageX + 10 + "px");
+    });
+});
