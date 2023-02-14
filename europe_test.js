@@ -2,18 +2,18 @@
 let w = 1000;
 let h = 1000;
 
-//Define map projection
-// let projection = d3.geo
-//   .mercator()
-//   .center([0, 60])
-//   .translate([w / 3, h / 3])
-//   .scale(650);
+// Define map projection
+let projection = d3.geo
+  .mercator()
+  .center([0, 60])
+  .translate([w / 3, h / 3])
+  .scale(650);
 
-var projection = d3.geo.mercator().translate([w / 2, h / 2]);
+// var projection = d3.geo.mercator().translate([w / 2, h / 2]);
 
 //Define path generator
-// let path = d3.geo.path().projection(projection);
-var path = d3.geo.path().projection(projection);
+let path = d3.geo.path().projection(projection);
+// var path = d3.geo.path().projection(projection);
 let color = d3.scale.ordinal().range(["Azure"]);
 
 //Create SVG
@@ -36,6 +36,16 @@ d3.json("europe.json", (json) => {
       .style("z-index", "10")
       .style("visibility", "hidden")
       .text("a simple tooltip");
+
+    // var bounds = d3.geo.bounds(json.features),
+    //   center = d3.geo.centroid(json.features);
+
+    // // Compute the angular distance between bound corners
+    // var distance = d3.geo.distance(bounds[0], bounds[1]),
+    //   scale = h / distance / Math.sqrt(2);
+
+    // // Update the projection scale and centroid
+    // projection.scale(scale).center(center);
 
     g.selectAll("circle")
       .data(data)
@@ -71,16 +81,6 @@ d3.json("europe.json", (json) => {
       return color(i);
     });
 
-  var bounds = d3.geo.bounds(json.features),
-    center = d3.geo.centroid(json.features);
-
-  // Compute the angular distance between bound corners
-  var distance = d3.geo.distance(bounds[0], bounds[1]),
-    scale = height / distance / Math.sqrt(2);
-
-  // Update the projection scale and centroid
-  projection.scale(scale).center(center);
-
   //States
   g.selectAll("text")
     .data(json.features)
@@ -100,7 +100,7 @@ d3.json("europe.json", (json) => {
   g.append("text")
     .attr("x", 0)
     .attr("y", 340)
-    .attr("font-size", 30)
+    .attr("font-size", 8)
     .attr("font-weight", "bold")
     .attr("font-family", "Times New Roman")
     .attr("text-anchor", "middle")
