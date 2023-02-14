@@ -11,7 +11,6 @@ let projection = d3.geo
 
 //Define path generator
 let path = d3.geo.path().projection(projection);
-
 let color = d3.scale.ordinal().range(["Azure"]);
 
 //Create SVG
@@ -22,7 +21,7 @@ let svg = d3
   .attr("height", h);
 
 //Load in GeoJSON data
-d3.json("aust.json", (json) => {
+d3.json("europe.json", (json) => {
   //Binding data and creating one path per GeoJSON feature
   svg
     .selectAll("path")
@@ -63,7 +62,7 @@ d3.json("aust.json", (json) => {
     .attr("opacity", 0.5);
 });
 
-d3.csv("australia_data.csv", (data) => {
+d3.csv("europe_capital.csv", (data) => {
   // Create a color scale
   let color = d3.scale.category20();
 
