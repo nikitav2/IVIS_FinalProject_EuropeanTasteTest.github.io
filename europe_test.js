@@ -1,17 +1,19 @@
 //Width and height
-let w = 1000;
-let h = 1000;
+let w = 600;
+let h = 600;
 
 //Define map projection
-let projection = d3.geo
-  .mercator()
-  .center([0, 60])
-  .translate([w / 3, h / 3])
-  .scale(650);
+// let projection = d3.geo
+//   .mercator()
+//   .center([0, 60])
+//   .translate([w / 3, h / 3])
+//   .scale(650);
+
+var projection = d3.geo.mercator().translate([w / 2, h / 2]);
 
 //Define path generator
-let path = d3.geo.path().projection(projection);
-
+// let path = d3.geo.path().projection(projection);
+var path = d3.geo.path().projection(projection);
 let color = d3.scale.ordinal().range(["Azure"]);
 
 //Create SVG
@@ -68,6 +70,16 @@ d3.json("europe.json", (json) => {
     .attr("fill", (d, i) => {
       return color(i);
     });
+
+  var bounds = d3.geo.bounds(json.features),
+    center = d3.geo.centroid(json.features);
+
+  // Compute the angular distance between bound corners
+  var distance = d3.geo.distance(bounds[0], bounds[1]),
+    scale = height / distance / Math.sqrt(2);
+
+  // Update the projection scale and centroid
+  projection.scale(scale).center(center);
 
   //States
   g.selectAll("text")
