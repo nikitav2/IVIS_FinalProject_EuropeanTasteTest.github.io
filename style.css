@@ -9,12 +9,27 @@
   color: #000;
   background: #fff;
 }
-nav{
-  position: fixed;
+.parent {
+  position: relative;
+}
+#map {
+  height: 750px;
+  width: 100%;
+}
+nav {
+  position: absolute;
   background: #CC5643;
   width: 100%;
-  padding: 10px 0;
-  z-index: 12;
+  padding: 10px;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+map {
+  position: fixed;
+  padding: 100px;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
 }
 nav .menu{
   max-width: 1250px;
