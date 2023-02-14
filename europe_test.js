@@ -1,6 +1,6 @@
 //Width and height
-let w = 600;
-let h = 600;
+let w = 1000;
+let h = 1000;
 
 //Define map projection
 // let projection = d3.geo
