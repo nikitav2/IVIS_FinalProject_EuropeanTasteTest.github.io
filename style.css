@@ -13,8 +13,16 @@
   position: relative;
 }
 #map {
+  float:right;
   height: 750px;
   width: 100%;
+}
+article {
+  float: left;
+  padding: 20px;
+  width: 100%;
+  background-color: #CC5643;
+  height: 100%; /* only for demonstration, should be removed */
 }
 nav {
   position: absolute;
@@ -25,11 +33,22 @@ nav {
   margin-bottom: 10px;
 }
 map {
-  position: fixed;
+  float: left;
   padding: 100px;
   height: 100%;
   width: 100%;
+  background: #CC5643;
   z-index: 0;
+}
+body {
+  margin: 0px;
+  min-height: 100%;
+  width: 100%;
+}
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
 }
 nav .menu{
   max-width: 1250px;
@@ -130,4 +149,56 @@ nav .menu{
 .center .btns button:last-child{
   background: white;
   color: black;
+}
+@media (max-width: 600px) {
+  article, map {
+    width: 100%;
+    height: auto;
+  }
+}
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.item1 {
+  grid-area: navigation;
+}
+.item2 {
+  grid-area: main;
+  grid-column-start:1;
+  grid-column-end:3;
+  background-color: #CC5643;
+}
+.item3 {
+  grid-area: right;
+  grid-column-start:3;
+  grid-column-end:6;
+}
+/* 
+.item4 {
+  grid-area: footer;
+  grid-column-start:1;
+  grid-column-end:3;
+} */
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+  'main main main right right right'
+    'main main main right right right'
+    'main main main right right right';
+  gap: 10px;
+  background-color: #c47b70;
+  padding: 10px;
+  height: 100%
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  display: grid;
+  padding: 20px 0;
+  font-size: 30px;
 }
