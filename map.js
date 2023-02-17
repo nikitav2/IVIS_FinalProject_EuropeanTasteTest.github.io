@@ -16,7 +16,7 @@ const map = new google.maps.Map(d3.select("#map").node(), {
     },
   ],
   // bound camera to Europe and prevent zooming out
-  minZoom: 5,
+  minZoom: 4,
   restriction: {
     latLngBounds: {
       north: 70,
@@ -35,7 +35,7 @@ $.get("data.csv", function (data) {
   var lines = data.split("\n");
   console.log(lines.length);
 
-  for (var i = 1; i < lines.length; i++) {
+  for (var i = 1; i < 7; i++) {
     var values = lines[i].split(",");
     // values = values.replaceAll("###COMA###", ",");
     // console.log(values);
