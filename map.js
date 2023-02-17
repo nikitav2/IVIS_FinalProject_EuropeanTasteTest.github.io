@@ -31,47 +31,46 @@ const map = new google.maps.Map(d3.select("#map").node(), {
 $.get("data.csv", function (data) {
   //   console.log(data);
 
+  // replace commas in the data with placeholder
   data = data.replace(/"(.*?)"/g, (str) => str.replaceAll(",", "###COMMA###"));
+
   var lines = data.split("\n");
   console.log(lines.length);
 
+  // iterate through each line of the data
   for (var i = 1; i < 7; i++) {
     var values = lines[i].split(",");
     // values = values.replaceAll("###COMA###", ",");
     // console.log(values);
 
+    // extract relevant information to display in content box
     var latValue = parseFloat(values[12]);
-    // console.log("this is lat: ", latValue);
     var lonValue = parseFloat(values[13]);
-    // console.log("this is lon: ", lonValue);
-
     var name = values[2];
+    var cuisine = values[4];
+    // var rating =
+
     var markerPosition = new google.maps.LatLng(latValue, lonValue);
-    // var markerPosition = { lat: Number(latValue), lng: Number(lonValue) };
     var markers = new google.maps.Marker({
       position: markerPosition,
       map: map,
       title: name,
     });
 
-    var content = '<div id="content">' + "<h1>" + name + "</h1>" + "</div>";
+    // var content = '<div id="content">' + "<h1>" + name + "</h1>" + "</div>";
+    var content = name;
 
     const popup = new google.maps.InfoWindow({
       content: content,
       ariaLabel: name,
     });
 
-    // markers.addListener("click", () => {
-    //   map.setZoom(15);
-    //   console.log(markers.getPosition());
-    //   map.setCenter(markers.getPosition());
+    const hover_popup = new google.maps.InfoWindow({
+      content: content,
+      ariaLabel: name,
+    });
 
-    //   popup.open({
-    //     anchor: markers,
-    //     map,
-    //   });
-    // });
-
+    // add listener to open info window when clicked
     google.maps.event.addListener(
       markers,
       "click",
@@ -87,48 +86,32 @@ $.get("data.csv", function (data) {
       })(markers, content)
     );
 
+    // add listener to close info window <-- doesn't work yet
     google.maps.event.addListener(markers, "closeclick", () => {
       map.setZoom(5);
       map.setCenter(center);
     });
+
+    //add listener to open smaller popup when hover over
+    google.maps.event.addListener(
+      markers,
+      "mouseover",
+      (function (markers, content) {
+        return function () {
+          hover_popup.setContent(content);
+          hover_popup.open(map, markers);
+        };
+      })(markers, content)
+    );
+
+    google.maps.event.addListener(
+      markers,
+      "mouseout",
+      (function (markers, content) {
+        return function () {
+          hover_popup.close();
+        };
+      })(markers, content)
+    );
   }
 });
-
-// add a sample marker to the map
-// const markerPos = { lat: 59.349253, lng: 18.067822 };
-// const marker = new google.maps.Marker({
-//   position: markerPos,
-//   map: map,
-//   title: "7/11",
-// });
-
-// // create a pop up for the marker
-// const contentString =
-//   '<div id="content">' +
-//   "<h1 id='firstHeading' class='firstHeading' 7/11 ></h1>" +
-//   '<div id="bodyContent">' +
-//   "<p><b>7/11</b> is known for its hot dogs & fried onions. </p>" +
-//   "</div>" +
-//   "</div>";
-
-// const infowindow = new google.maps.InfoWindow({
-//   content: contentString,
-//   ariaLabel: "7/11",
-// });
-
-// // zoom into marker and show pop up when clicked
-// marker.addListener("click", () => {
-//   map.setZoom(15);
-//   map.setCenter(marker.getPosition());
-
-//   infowindow.open({
-//     anchor: marker,
-//     map,
-//   });
-// });
-
-// FIX: not resetting position when closed
-// infowindow.addListener("closeclick", () => {
-//   map.setZoom(5);
-//   map.setCenter(center);
-// });
