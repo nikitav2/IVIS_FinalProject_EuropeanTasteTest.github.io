@@ -4,6 +4,8 @@
 <head>
     <title>European Taste Test</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a675ac714b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 
     <script src="//d3js.org/d3.v3.min.js"></script>
@@ -39,8 +41,20 @@
         <div id="map"></div>
         <script src="map.js"></script>
       </map>
-      <div class="article2">
-        <p>Filters</p>
+      <div  class="article2">
+        <div class ="filter_box">
+            <p>Filters</p>
+            <div class ="dropdown">
+                <button class = "dropbtn">City<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn">Dietary Restrictions<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn">Price Range<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn">Ratings<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+            </div>
+            <div class ="applyrest">
+                <button class = "applybtn">Apply</button>
+                <button class = "applybtn">Reset</button>
+            </div>
+        </div>
       </div>
       </section>
     </div>
@@ -48,3 +62,4 @@
 </body>
 
 </html>
+
