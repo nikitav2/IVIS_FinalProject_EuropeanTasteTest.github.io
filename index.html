@@ -43,12 +43,53 @@
       </map>
       <div  class="article2">
         <div class ="filter_box">
+            <script src = "filter.js"></script>
             <p>Filters</p>
-            <div class ="dropdown">
+            <!-- <div class ="dropdown">
                 <button class = "dropbtn">City<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
                 <button class = "dropbtn">Dietary Restrictions<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
                 <button class = "dropbtn">Price Range<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
                 <button class = "dropbtn">Ratings<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+            </div> -->
+            <div class= "dropdown">
+                <button class = "dropbtn" onclick = "openCityFilter()">City<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <div id = "city_dropdown" class = "dropdown-content">
+                    <a href="#">All</a>
+                    <a href="#">Amsterdam</a>
+                    <a href="#">Berlin</a>
+                    <a href="#">Stockholm</a>
+                </div>
+            </div>
+            <div class= "dropdown">
+                <button class = "dropbtn" onclick = "openDietaryFilter()">Dietary Restrictions<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <div id = "dietary_dropdown" class = "dropdown-content">
+                    <a href="#">None</a>
+                    <a href="#">Vegetarian</a>
+                    <a href="#">Vegan</a>
+                    <a href="#">Gluten allergy</a>
+                    <a href="#">Lactose Intolerant</a>
+                </div>
+            </div>
+            <div class= "dropdown">
+                <button class = "dropbtn" onclick = "openPriceRangeFilter()">Price Range<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <div id = "price_range_dropdown" class = "dropdown-content">
+                    <a href="#">All</a>
+                    <a href="#">$</a>
+                    <a href="#">$$</a>
+                    <a href="#">$$$</a>
+                    <a href="#">$$$$</a>
+                </div>
+            </div>
+            <div class= "dropdown">
+                <button class = "dropbtn" onclick = "openRatingsFilter()">Ratings<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <div id = "ratings_dropdown" class = "dropdown-content">
+                    <a href="#">All</a>
+                    <a href="#">1/5</a>
+                    <a href="#">2/5</a>
+                    <a href="#">3/5</a>
+                    <a href="#">4/5</a>
+                    <a href="#">5/5</a>
+                </div>
             </div>
             <div class ="applyrest">
                 <button class = "applybtn">Apply</button>
