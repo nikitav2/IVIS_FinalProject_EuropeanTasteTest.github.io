@@ -9,13 +9,71 @@
   color: #000;
   background: #fff;
 }
-nav{
-  position: fixed;
-  background: #CC5643;
-  width: 100%;
-  padding: 10px 0;
-  z-index: 12;
+.parent {
+  position: relative;
 }
+#map {
+  float:right;
+  height: 750px;
+  width: 100%;
+}
+article {
+  float: left;
+  padding: 20px;
+  width: 100%;
+  background-color: #CC5643;
+  height: 100%; /* only for demonstration, should be removed */
+}
+nav {
+  position: sticky;
+  background: #d57465;
+  /* background: #CC5643; */
+  width: 100%;
+  /* padding: 10px; */
+  z-index: 1;
+  /* margin-bottom: 10px; */
+}
+
+map {
+  float: right;
+  padding-top: 100px;
+  padding-bottom:100px;
+  padding-left:80px;
+  padding-right:80px;
+  height: 100%;
+  width: 80%;
+  background: #CC5643;
+  z-index: 0;
+  flex:1;
+  flex-direction: column;
+}
+body {
+  margin: 0px;
+  min-height: 100vh;
+  width: 100%;
+}
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.article2 {
+  float: left;
+  width: 20%;
+  flex:1;
+  min-height: 100vh;
+  flex-direction: column;
+  padding-top: 100px;
+  padding-left:10px;
+  z-index: 0;
+  background: #CC5643;
+  font-size: x-large;
+}
+
+
+
+
 nav .menu{
   max-width: 1250px;
   margin: auto;
@@ -116,3 +174,15 @@ nav .menu{
   background: white;
   color: black;
 }
+@media (max-width: 600px) {
+  article, map {
+    width: 100%;
+    height: auto;
+  }
+}
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
