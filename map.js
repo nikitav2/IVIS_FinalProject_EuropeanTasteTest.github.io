@@ -1,5 +1,5 @@
 const center = { lat: 52.5, lng: 17.5 };
-const map = new google.maps.Map(d3.select("#map").node(), {
+var map = new google.maps.Map(d3.select("#map").node(), {
   zoom: 5,
   center: new google.maps.LatLng(center),
   mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -27,6 +27,10 @@ const map = new google.maps.Map(d3.select("#map").node(), {
   },
 });
 
+map.setOptions({
+  draggableCursor: "url(image1.png), auto",
+});
+
 //iterate through data
 $.get("data.csv", function (data) {
   //   console.log(data);
@@ -51,7 +55,7 @@ $.get("data.csv", function (data) {
     var rating = values[6];
     var price = values[7];
     var num_reviews = Number(values[8]).toFixed(0);
-    var trip_advisor_link = "www.tripadvisor.com" + values[10];
+    // var trip_advisor_link = "www.tripadvisor.com" + values[10];
     // console.log("ta_link: ", trip_advisor_link);
 
     //Rating,Price Range,Number of Reviews,Reviews,URL_TA,
@@ -94,16 +98,16 @@ $.get("data.csv", function (data) {
       num_reviews +
       "</span>" +
       "</div>" +
-      "<div>" +
-      "<span>" +
-      "<b>Trip Advisor Link:</b> " +
-      "<a href =" +
-      trip_advisor_link +
-      ">" +
-      name +
-      "</a>" +
-      "</span>" +
-      "</div>" +
+      // "<div>" +
+      // "<span>" +
+      // "<b>Trip Advisor Link:</b> " +
+      // "<a href =" +
+      // trip_advisor_link +
+      // ">" +
+      // name +
+      // "</a>" +
+      // "</span>" +
+      // "</div>" +
       "</div>";
 
     var hover_content = name;

@@ -17,10 +17,11 @@
 }
 #map {
   float:right;
-  /* height: 750px; */
+  height: 750px;
   width: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   border-radius: 20px;
+  cursor: url("/Users/kritimathur/Documents/DH2321/nikitav2.github.io/image1.png"), auto;
 }
 article {
   float: left;
@@ -51,6 +52,7 @@ map {
   z-index: 0;
   flex:1;
   flex-direction: column;
+  cursor: url("/Users/kritimathur/Documents/DH2321/nikitav2.github.io/image1.png"), auto;
 }
 body {
   margin: 0px;
@@ -68,7 +70,9 @@ html {
   float: left;
   width: 30%;
   flex:1;
-  min-height: 100vh;
+
+  /* min-height: 100vh; */
+  
   flex-direction: column;
   padding-top: 100px;
   padding-left:30px;
@@ -82,7 +86,8 @@ html {
   z-index: 0;
   padding-top: 30px;
   padding-left: 30px;
-  min-height: 100vh;
+  height:850px;
+  /* min-height: 100vh; */
   flex:1;
   flex-direction: column;
   text-align:left;
@@ -239,11 +244,11 @@ section::after {
   text-align: center;
   font-size:medium;
   z-index: 2;
-  margin-top:40px;
+  margin-top:20px;
 }
 
 .applyrest {
-  padding-top:110%;
+  padding-top:60%;
   position:relative;
 }
 
