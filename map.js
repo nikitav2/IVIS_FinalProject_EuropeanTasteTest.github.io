@@ -42,7 +42,7 @@ $.get("data.csv", function (data) {
   console.log(lines.length);
 
   // iterate through each line of the data
-  for (var i = 1; i < 7; i++) {
+  for (var i = 1; i < lines.length; i++) {
     var values = lines[i].split(",");
     // values = values.replaceAll("###COMA###", ",");
     // console.log(values);
