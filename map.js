@@ -27,9 +27,9 @@ var map = new google.maps.Map(d3.select("#map").node(), {
   },
 });
 
-map.setOptions({
-  draggableCursor: "url(image1.png), auto",
-});
+// map.setOptions({
+//   draggableCursor: "url(image1.png), auto",
+// });
 
 //iterate through data
 $.get("data.csv", function (data) {
@@ -42,7 +42,7 @@ $.get("data.csv", function (data) {
   console.log(lines.length);
 
   // iterate through each line of the data
-  for (var i = 1; i < lines.length; i++) {
+  for (var i = 1; i < 7; i++) {
     var values = lines[i].split(",");
     // values = values.replaceAll("###COMA###", ",");
     // console.log(values);
