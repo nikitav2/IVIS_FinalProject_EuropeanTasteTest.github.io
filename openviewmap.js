@@ -39,7 +39,18 @@ $.get("data.csv", function (data) {
     var rating = values[6];
     var price = values[7];
     var num_reviews = Number(values[8]).toFixed(0);
-    // var trip_advisor_link = "www.tripadvisor.com" + values[10];
+
+    var trip_advisor_link = "www.tripadvisor.com" + values[10];
+    values = [
+      name,
+      latValue,
+      lonValue,
+      cuisine,
+      rating,
+      price,
+      num_reviews,
+      trip_advisor_link,
+    ];
     // console.log("ta_link: ", trip_advisor_link);
 
     //Rating,Price Range,Number of Reviews,Reviews,URL_TA,
@@ -90,8 +101,38 @@ $.get("data.csv", function (data) {
     var hover_content = name;
     var marker = new L.marker([latValue, lonValue])
       .addTo(map)
-      .bindPopup(clicked_content);
+      .bindPopup(clicked_content)
+      .on("click", function (e) {
+        addToTable(values);
+      });
 
     marker.bindTooltip(hover_content);
   }
 });
+
+function addToTable(values) {
+  var table = document.getElementById("compareVals");
+  var row = table.insertRow(1);
+  var nameCell = row.insertCell(0);
+  var cuisineCell = row.insertCell(1);
+  var ratingCell = row.insertCell(2);
+  var priceRangeCell = row.insertCell(3);
+
+  nameCell.innerHTML = values[0];
+  cuisineCell.innerHTML = values[3];
+  ratingCell.innerHTML = values[4];
+  priceRangeCell.innerHTML = values[5];
+
+  console.log("here: ", values);
+}
+
+// values = [
+//   name,
+//   latValue,
+//   lonValue,
+//   cuisine,
+//   rating,
+//   price,
+//   num_reviews,
+//   trip_advisor_link,
+// ];
