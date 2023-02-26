@@ -34,6 +34,7 @@ $.get("data.csv", function (data) {
     var latValue = parseFloat(values[12]);
     var lonValue = parseFloat(values[13]);
     var name = values[2];
+
     var cuisine = values[4].split("###COMMA###");
     var rating = values[6];
     var price = values[7];
@@ -87,46 +88,10 @@ $.get("data.csv", function (data) {
       "</div>";
 
     var hover_content = name;
-    var hover_popup = L.popup();
+    var marker = new L.marker([latValue, lonValue])
+      .addTo(map)
+      .bindPopup(clicked_content);
 
-    var marker = L.marker([latValue, lonValue]).addTo(map);
-
-    marker.bindPopup("Long description with extra formatting ...");
-    marker.bindTooltip("Short description");
-    marker.on("mouseover", showHideTooltip);
-    marker.on("click", clickHideTooltip);
-
-    // marker
-    //   .on("click", (event) => {
-    //     console.log(clicked_content);
-    //     event.target.bindPopup(clicked_content).openPopup();
-    //   })
-    //   .on("mouseover", (event) => {
-    //     console.log("hovered over");
-    //     event.target
-    //       .bindTooltip(hover_content, { noHide: false })
-    //       .openTooltip();
-    //     event.setStyle;
-    //   })
-    //   .on("mouseout", (event) => {
-    //     console.log("hovered out");
-    //     event.target.closePopup();
-    //   });
+    marker.bindTooltip(hover_content);
   }
 });
-
-function showHideTooltip() {
-  var mytooltip = this.getTooltip();
-  if (this.isPopupOpen()) {
-    // Popup is open, set opacity to 0 (invisible)
-    mytooltip.setOpacity(0.0);
-  } else {
-    // Popup is cosed, set opacity back to visible
-    mytooltip.setOpacity(0.9);
-  }
-}
-
-function clickHideTooltip() {
-  var mytooltip = this.getTooltip();
-  mytooltip.setOpacity(0.0);
-}
