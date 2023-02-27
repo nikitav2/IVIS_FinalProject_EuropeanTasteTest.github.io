@@ -23,6 +23,8 @@ map.addLayer(layer);
 
 var marker = L.marker([51.5, -0.09]).addTo(map);
 
+var compareRows = 0;
+
 $.get("data.csv", function (data) {
   data = data.replace(/"(.*?)"/g, (str) => str.replaceAll(",", " ###COMMA###"));
   var lines = data.split("\n");
@@ -111,28 +113,48 @@ $.get("data.csv", function (data) {
 });
 
 function addToTable(values) {
+  compareRows = compareRows + 1;
   var table = document.getElementById("compareVals");
-  var row = table.insertRow(1);
+  var row = table.insertRow(compareRows);
+
+  //   var testcell = row.insertCell(0);
+  //   testcell.innerHTML = values;
+
+  const delete_button = document.createElement("button");
+  var id_val = "deleteButton" + compareRows;
+  var row_id_val = "row" + compareRows;
+  row.id = row_id_val;
+
+  delete_button.id = id_val;
+  delete_button.className = "delete";
+  delete_button.innerText = "Delete";
+
   var nameCell = row.insertCell(0);
   var cuisineCell = row.insertCell(1);
   var ratingCell = row.insertCell(2);
   var priceRangeCell = row.insertCell(3);
+  row.appendChild(delete_button);
 
   nameCell.innerHTML = values[0];
   cuisineCell.innerHTML = values[3];
   ratingCell.innerHTML = values[4];
   priceRangeCell.innerHTML = values[5];
 
-  console.log("here: ", values);
-}
+  console.log("here: ", id_val, " ", values);
 
-// values = [
-//   name,
-//   latValue,
-//   lonValue,
-//   cuisine,
-//   rating,
-//   price,
-//   num_reviews,
-//   trip_advisor_link,
-// ];
+  delete_button.addEventListener("click", () => {
+    console.log("clicked elete ", delete_button.id);
+    document.getElementById(delete_button.id).remove();
+    var num = delete_button.id.substring(12);
+    var row_id = "row" + num;
+    console.log("this is: ", num);
+    document.getElementById(row_id).remove();
+    compareRows = compareRows - 1;
+
+    // console.log("clicked delete button: ", id_val);
+    // document.getElementById(row_id_val).remove();
+    // document.getElementById(id_val).remove();
+    // var row_index = r.parentNode.parentNode.rowIndex;
+    // document.getElementById("compareVals").deleteRow(row_index);
+  });
+}
