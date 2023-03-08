@@ -184,7 +184,7 @@ d3.csv("data.csv", function (i, crime) {
       .addTo(map)
       .bindPopup(clicked_content)
       .on("click", function (e) {
-        console.log(clicked_content);
+        // console.log(clicked_content);
         if (!clickedMarkers.includes(hover_content)) {
           clickedMarkers.push(hover_content);
           addToTable(values, clickedMarkers);

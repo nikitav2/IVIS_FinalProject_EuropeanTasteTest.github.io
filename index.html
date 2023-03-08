@@ -37,18 +37,25 @@
                 </ul>
             </div>
         </nav>
-    
+
+        <div class="filter_btn_wrapper">
+            <button class ="open_filter_btn" onclick="openFilters()">Open Filters</button>
+        </div>
         <section>
+
         <map>
         <div id="map"></div>
         <!-- <script src="map.js"></script> -->
         <script src="openviewmap.js" type="module"></script>
       </map>
-
+    
+      <script src = "filter.js"></script>
       <div  class="article2">
+        <!-- <script src = "filter.js"></script> -->
         <div class ="filter_box">
-            <script src = "filter.js"></script>
-            <p>Filters</p>
+
+            <!-- <p>Filters</p> -->
+            <button class = "close_filter_btn" onclick="closeFilters()"> <i class="fa fa-close"></i></button>
             <div class= "dropdown">
                 <button class = "dropbtn" onclick = "openCityFilter()">City<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
                 <div id = "city_dropdown" class = "dropdown-content">
