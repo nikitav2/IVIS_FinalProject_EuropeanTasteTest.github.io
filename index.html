@@ -51,22 +51,20 @@
     
       <script src = "filter.js"></script>
       <div  class="article2">
-        <!-- <script src = "filter.js"></script> -->
         <div class ="filter_box">
 
-            <!-- <p>Filters</p> -->
             <button class = "close_filter_btn" onclick="closeFilters()"> <i class="fa fa-close"></i></button>
             <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openCityFilter()">City<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn" onclick = "openCityFilter()">City<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
                 <div id = "city_dropdown" class = "dropdown-content">
-                    <a href="#">All</a>
+                    <a href="#" onclick="click_filter_value(this)">All</a>
                     <a href="#">Amsterdam</a>
                     <a href="#">Berlin</a>
                     <a href="#">Stockholm</a>
                 </div>
             </div>
             <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openDietaryFilter()">Dietary Restrictions<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn" onclick = "openDietaryFilter()">Dietary Restrictions<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
                 <div id = "dietary_dropdown" class = "dropdown-content">
                     <a href="#">None</a>
                     <a href="#">Vegetarian</a>
@@ -76,7 +74,7 @@
                 </div>
             </div>
             <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openPriceRangeFilter()">Price Range<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn" onclick = "openPriceRangeFilter()">Price Range<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
                 <div id = "price_range_dropdown" class = "dropdown-content">
                     <a href="#">All</a>
                     <a href="#">$</a>
@@ -86,40 +84,49 @@
                 </div>
             </div>
             <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openRatingsFilter()">Ratings<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:30px"></i></button>
+                <button class = "dropbtn" onclick = "openRatingsFilter()">Ratings<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
                 <div id = "ratings_dropdown" class = "dropdown-content">
                     <a href="#">All</a>
-                    <a href="#">1/5</a>
-                    <a href="#">2/5</a>
-                    <a href="#">3/5</a>
-                    <a href="#">4/5</a>
+                    <a href="#">1/5+</a>
+                    <a href="#">2/5+</a>
+                    <a href="#">3/5+</a>
+                    <a href="#">4/5+</a>
                     <a href="#">5/5</a>
                 </div>
             </div>
         </div>
-
+        <div class="filter_tags">
+            <b>Show filter</b>
+    
+        </div>
       </div>
+
+
 
       </section>
 
-      <div class="tableSection">
-        <div class = "comparetable">
-            <b style="font-size:x-large">Compare Restaurants</b>
-        <table id = "compareVals" class="tablevalues">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Cuisines</th>
-                    <th>Rating</th>
-                    <th>Price Range</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        </div>
-      </div>
+
     </div>
+    <section>
+        <div class="tableSection">
+            <div class = "comparetable">
+                <b style="font-size:x-large">Compare Restaurants</b>
+            <table id = "compareVals" class="tablevalues">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Cuisines</th>
+                        <th>Rating</th>
+                        <th>Price Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+          </div>
+    </section>
+
 
 
 

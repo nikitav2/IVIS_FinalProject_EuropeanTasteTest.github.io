@@ -14,6 +14,11 @@ function closeFilters() {
   document.getElementsByClassName("open_filter_btn")[0].style.display = "block";
 }
 
+function click_filter_value(obj) {
+  var temp = obj.innerHTML;
+  console.log(temp);
+}
+
 function openCityFilter() {
   document.getElementById("city_dropdown").classList.toggle("show");
 
