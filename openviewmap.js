@@ -170,21 +170,21 @@ d3.csv("data.csv", function (i, crime) {
       "<div>" +
       "<span>" +
       "<b>Trip Advisor Link:</b> " +
-      "<a href =" +
+      "<a href = https://" +
       trip_advisor_link +
-      ">" +
+      ' target= "_blank" rel="noreferrer">' +
       name +
       "</a>" +
       "</span>" +
       "</div>" +
       "</div>";
 
-    // console.log(clicked_content);
     var hover_content = name;
     var marker = new L.marker([latValue, lonValue])
       .addTo(map)
       .bindPopup(clicked_content)
       .on("click", function (e) {
+        console.log(clicked_content);
         if (!clickedMarkers.includes(hover_content)) {
           clickedMarkers.push(hover_content);
           addToTable(values, clickedMarkers);
