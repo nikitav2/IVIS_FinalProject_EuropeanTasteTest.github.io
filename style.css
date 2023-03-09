@@ -89,7 +89,8 @@ html {
   background-color: #CFDEE2;
   font-size: x-large;
   overflow:auto;
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
 }
 
 .close_filter_btn {
@@ -99,7 +100,7 @@ html {
   margin-left: 75%;
   border-radius: 30px;
   color: white;
-  padding: 10px 15px;
+  padding: 6px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -110,27 +111,24 @@ html {
 }
 .filter_box {
   background-color: #CFDEE2;
-  position: absolute;
+  position: aboslute;
+  top:0px;
   z-index: 1;
   visibility: hidden;
-  padding-top: 30px;
-  padding-bottom:40px;
-  padding-left: 30px;
-  /* height:750px; */
-  height:500px;
+  padding-left:10px;
+  height:400px;
   width: 100%;
-  /* height: auto; */
-  /* min-height: 100vh; */
   flex:1;
-  /* flex-direction: column; */
   text-align:left;
   border-radius: 20px;
-  overflow:auto;
+  overflow-wrap:normal;
+  overflow: auto;
 }
 
 .filter_tags {
   background-color: #CFDEE2;
   position: absolute;
+  /* bottom: 0px; */
   z-index: 1;
   visibility: hidden;
   padding-top: 30px;
@@ -139,10 +137,7 @@ html {
   /* height:750px; */
   height:200px;
   width: 100%;
-  /* height: auto; */
-  /* min-height: 100vh; */
   flex:1;
-  /* flex-direction: column; */
   text-align:left;
   border-radius: 20px;
   overflow:auto;
@@ -403,30 +398,61 @@ section::after {
   background-color: #462824;
 }
 
+.dropbtn2 {
+  background: none;
+  background-color: #fff;
+  border-color: white;
+  cursor: pointer;
+  color: inherit;
+	border: none;
+  /* height:40%; */
+	cursor: pointer;
+	outline: inherit;
+}
+
 .dropbtn {
+  background: none;
+  background-color: #fff;
+  border-color: white;
+  cursor: pointer;
+  color: inherit;
+	border: none;
+	padding: 0;
+  /* width:100%; */
+	/* font: inherit; */
+	cursor: pointer;
+	outline: inherit;
+}
+
+.drop_area {  
   background-color: #fff;
   color: black;
+  border-radius: 10px;
   padding: 10px 16px;
   padding-left:10px;
-  padding-top:10px;
+  padding-top:5px;
   padding-bottom:30px;
   width:90%;
-  height:40px;
+  height:10px;
   font-size: 16px;
   border-width:1px;
-  cursor: pointer;
+  /* cursor: pointer; */
   text-align: left;
   font-size:medium;
   z-index: 2;
-  margin-top:40px;
+  margin-top:13px;
 }
 
 
 .dropdown {
+  /* background-color: #fff; */
   position: relative;
   display: inline-block;
   width:100%;
-  height:auto;
+  height:20px;
+  overflow-wrap:normal;
+  /* overflow: hidden; */
+  /* height:auto; */
 
 }
 
@@ -434,22 +460,24 @@ section::after {
   display: none;
   position: absolute;
   background-color: #f6f6f6;
-  width:50%;
+  width:80%;
   height:100%;
   /* height:auto; */
-  font-size: 15px;
+  font-size: 12px;
   /* min-width: 230px; */
-  /* overflow: auto; */
+  overflow-wrap:normal;
   border: 1px solid #ddd;
   z-index: 1;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  /* padding: 8px 8px; */
+  padding-left: 8px;
   background-color: #f6f6f6;
   width:100%;
   height:100%;
+  overflow-wrap: normal;
   text-decoration: none;
   /* height:auto; */
   display: block;
