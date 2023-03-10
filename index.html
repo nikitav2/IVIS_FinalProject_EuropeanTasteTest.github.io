@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/a675ac714b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    
 
     <script src="//d3js.org/d3.v4.min.js"></script>
     <!-- <script src="//d3js.org/topojson.v1.min.js"></script> -->
@@ -95,26 +96,39 @@
 
       </section>
 
-      <div class="tableSection">
-        <div class = "comparetable">
-            <b style="font-size:x-large">Compare Restaurants</b>
-        <table id = "compareVals" class="tablevalues">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Cuisines</th>
-                    <th>Rating</th>
-                    <th>Price Range</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        </div>
+      <!-- Menu to shift between table view and chart view -->
+      <div class="viewMenu">
+        <button class="button_active">Table view</button>
+        <button >Chart view</button>
       </div>
+
+        <div class="contentSection">
+            <!-- Table section -->
+            <div class = "comparable table content_inside content_inside_active">
+                <b style="font-size:x-large">Compare Restaurants</b>
+            <table id = "compareVals" class="tablevalues">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Cuisines</th>
+                        <th>Rating</th>
+                        <th>Price Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+
+            <!-- Chart section -->
+            <div class="comparable chart content_inside">
+                <b style="font-size:x-large">Here there will be a chart</b>
+            </div>
+        </div>
+
     </div>
 
-
+<script type="text/javascript" src="chart.js"></script>
 
 </body>
 
