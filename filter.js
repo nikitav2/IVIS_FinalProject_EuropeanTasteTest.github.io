@@ -15,7 +15,9 @@ function openFilters() {
       alert("Can only select 4 options");
     })
     .on("change", function (evt, params) {
+      console.log(evt);
       console.log(params);
+      displayData(params);
     });
 }
 
@@ -37,92 +39,92 @@ function click_filter_value(obj) {
   console.log(temp);
 }
 
-function openCityFilter() {
-  document.getElementById("city_dropdown").classList.toggle("show");
+// function openCityFilter() {
+//   document.getElementById("city_dropdown").classList.toggle("show");
 
-  document.getElementById("dietary_dropdown").classList.remove("show");
-  document.getElementById("price_range_dropdown").classList.remove("show");
-  document.getElementById("ratings_dropdown").classList.remove("show");
-  document.getElementById("cuisine_dropdown").classList.remove("show");
+//   document.getElementById("dietary_dropdown").classList.remove("show");
+//   document.getElementById("price_range_dropdown").classList.remove("show");
+//   document.getElementById("ratings_dropdown").classList.remove("show");
+//   document.getElementById("cuisine_dropdown").classList.remove("show");
 
-  window.onclick = function (e) {
-    var myDropdown = document.getElementById("city_dropdown");
-    if (e.target.matches(".dropbtn2")) {
-      if (myDropdown.classList.contains("show")) {
-        myDropdown.classList.remove("show");
-      }
-    }
-  };
-}
+//   window.onclick = function (e) {
+//     var myDropdown = document.getElementById("city_dropdown");
+//     if (e.target.matches(".dropbtn2")) {
+//       if (myDropdown.classList.contains("show")) {
+//         myDropdown.classList.remove("show");
+//       }
+//     }
+//   };
+// }
 
-function openDietaryFilter() {
-  document.getElementById("dietary_dropdown").classList.toggle("show");
+// function openDietaryFilter() {
+//   document.getElementById("dietary_dropdown").classList.toggle("show");
 
-  document.getElementById("city_dropdown").classList.remove("show");
-  document.getElementById("price_range_dropdown").classList.remove("show");
-  document.getElementById("ratings_dropdown").classList.remove("show");
-  document.getElementById("cuisine_dropdown").classList.remove("show");
+//   document.getElementById("city_dropdown").classList.remove("show");
+//   document.getElementById("price_range_dropdown").classList.remove("show");
+//   document.getElementById("ratings_dropdown").classList.remove("show");
+//   document.getElementById("cuisine_dropdown").classList.remove("show");
 
-  window.onclick = function (e) {
-    if (e.target.matches(".dropbtn2")) {
-      var myDropdown = document.getElementById("dietary_dropdown");
-      if (myDropdown.classList.contains("show")) {
-        myDropdown.classList.remove("show");
-      }
-    }
-  };
-}
+//   window.onclick = function (e) {
+//     if (e.target.matches(".dropbtn2")) {
+//       var myDropdown = document.getElementById("dietary_dropdown");
+//       if (myDropdown.classList.contains("show")) {
+//         myDropdown.classList.remove("show");
+//       }
+//     }
+//   };
+// }
 
-function openPriceRangeFilter() {
-  document.getElementById("price_range_dropdown").classList.toggle("show");
+// function openPriceRangeFilter() {
+//   document.getElementById("price_range_dropdown").classList.toggle("show");
 
-  document.getElementById("dietary_dropdown").classList.remove("show");
-  document.getElementById("city_dropdown").classList.remove("show");
-  document.getElementById("ratings_dropdown").classList.remove("show");
-  document.getElementById("cuisine_dropdown").classList.remove("show");
+//   document.getElementById("dietary_dropdown").classList.remove("show");
+//   document.getElementById("city_dropdown").classList.remove("show");
+//   document.getElementById("ratings_dropdown").classList.remove("show");
+//   document.getElementById("cuisine_dropdown").classList.remove("show");
 
-  window.onclick = function (e) {
-    if (e.target.matches(".dropbtn2")) {
-      var myDropdown = document.getElementById("price_range_dropdown");
-      if (myDropdown.classList.contains("show")) {
-        myDropdown.classList.remove("show");
-      }
-    }
-  };
-}
+//   window.onclick = function (e) {
+//     if (e.target.matches(".dropbtn2")) {
+//       var myDropdown = document.getElementById("price_range_dropdown");
+//       if (myDropdown.classList.contains("show")) {
+//         myDropdown.classList.remove("show");
+//       }
+//     }
+//   };
+// }
 
-function openRatingsFilter() {
-  document.getElementById("ratings_dropdown").classList.toggle("show");
+// function openRatingsFilter() {
+//   document.getElementById("ratings_dropdown").classList.toggle("show");
 
-  document.getElementById("city_dropdown").classList.remove("show");
-  document.getElementById("price_range_dropdown").classList.remove("show");
-  document.getElementById("dietary_dropdown").classList.remove("show");
-  document.getElementById("cuisine_dropdown").classList.remove("show");
+//   document.getElementById("city_dropdown").classList.remove("show");
+//   document.getElementById("price_range_dropdown").classList.remove("show");
+//   document.getElementById("dietary_dropdown").classList.remove("show");
+//   document.getElementById("cuisine_dropdown").classList.remove("show");
 
-  window.onclick = function (e) {
-    if (e.target.matches(".dropbtn2")) {
-      var myDropdown = document.getElementById("ratings_dropdown");
-      if (myDropdown.classList.contains("show")) {
-        myDropdown.classList.remove("show");
-      }
-    }
-  };
-}
+//   window.onclick = function (e) {
+//     if (e.target.matches(".dropbtn2")) {
+//       var myDropdown = document.getElementById("ratings_dropdown");
+//       if (myDropdown.classList.contains("show")) {
+//         myDropdown.classList.remove("show");
+//       }
+//     }
+//   };
+// }
 
-function openCuisineFilter() {
-  document.getElementById("cuisine_dropdown").classList.toggle("show");
+// function openCuisineFilter() {
+//   document.getElementById("cuisine_dropdown").classList.toggle("show");
 
-  document.getElementById("city_dropdown").classList.remove("show");
-  document.getElementById("price_range_dropdown").classList.remove("show");
-  document.getElementById("ratings_dropdown").classList.remove("show");
-  document.getElementById("dietary_dropdown").classList.remove("show");
+//   document.getElementById("city_dropdown").classList.remove("show");
+//   document.getElementById("price_range_dropdown").classList.remove("show");
+//   document.getElementById("ratings_dropdown").classList.remove("show");
+//   document.getElementById("dietary_dropdown").classList.remove("show");
 
-  window.onclick = function (e) {
-    if (e.target.matches(".dropbtn2")) {
-      var myDropdown = document.getElementById("cuisine_dropdown");
-      if (myDropdown.classList.contains("show")) {
-        myDropdown.classList.remove("show");
-      }
-    }
-  };
-}
+//   window.onclick = function (e) {
+//     if (e.target.matches(".dropbtn2")) {
+//       var myDropdown = document.getElementById("cuisine_dropdown");
+//       if (myDropdown.classList.contains("show")) {
+//         myDropdown.classList.remove("show");
+//       }
+//     }
+//   };
+// }

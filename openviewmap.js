@@ -4,7 +4,6 @@ var corner1 = L.latLng(29.735139, -34.49296),
   bounds = L.latLngBounds(corner1, corner2);
 
 var mapOptions = {
-  //   center: [29.735139, -34.49296],
   maxBounds: bounds,
   center: [52.505, 17.5],
   zoom: 4,
@@ -24,6 +23,9 @@ map.addLayer(layer);
 
 var compareRows = 0;
 var clickedMarkers = [];
+var isCityPresent = false;
+
+function loadData() {}
 
 function parseCuisine(cuisineVal) {
   cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
@@ -32,89 +34,95 @@ function parseCuisine(cuisineVal) {
   return cuisineVal;
 }
 
-d3.csv("data.csv", function (i, crime) {
-  crime.forEach(function (element) {
-    // console.log(i);
-    var latValue = parseFloat(element.lat);
-    var lonValue = parseFloat(element.lng);
-    var name = element.Name;
+function displayData(params) {
+  d3.csv("data.csv", function (i, crime) {
+    if (!isCityPresent) {
+      console.log("no city selected");
+    } else {
+      crime.forEach(function (element) {
+        // console.log(i);
+        var latValue = parseFloat(element.lat);
+        var lonValue = parseFloat(element.lng);
+        var name = element.Name;
 
-    var cuisine = parseCuisine(element.CuisineStyle);
+        var cuisine = parseCuisine(element.CuisineStyle);
 
-    var rating = element.Rating;
-    var price = element.PriceRange;
-    var num_reviews = Number(element.NumberofReviews).toFixed(0);
-    var trip_advisor_link = "www.tripadvisor.com" + element.URL_TA;
+        var rating = element.Rating;
+        var price = element.PriceRange;
+        var num_reviews = Number(element.NumberofReviews).toFixed(0);
+        var trip_advisor_link = "www.tripadvisor.com" + element.URL_TA;
 
-    var values = [
-      name,
-      latValue,
-      lonValue,
-      cuisine,
-      rating,
-      price,
-      num_reviews,
-      trip_advisor_link,
-    ];
+        var values = [
+          name,
+          latValue,
+          lonValue,
+          cuisine,
+          rating,
+          price,
+          num_reviews,
+          trip_advisor_link,
+        ];
 
-    var clicked_content =
-      '<div id="content">' +
-      "<h1>" +
-      name +
-      "</h1>" +
-      "</div>" +
-      "<div>" +
-      "<span>" +
-      "<b>Cuisines offered:</b> " +
-      cuisine +
-      "</span>" +
-      "</div>" +
-      "<div>" +
-      "<span>" +
-      "<b>Rating:</b> " +
-      rating +
-      "/5.0" +
-      "</span>" +
-      "</div>" +
-      "<div>" +
-      "<span>" +
-      "<b>Price range:</b> " +
-      price +
-      "</span>" +
-      "</div>" +
-      "<div>" +
-      "<span>" +
-      "<b>Number of Reviews:</b> " +
-      num_reviews +
-      "</span>" +
-      "</div>" +
-      "<div>" +
-      "<span>" +
-      "<b>Trip Advisor Link:</b> " +
-      "<a href = https://" +
-      trip_advisor_link +
-      ' target= "_blank" rel="noreferrer">' +
-      name +
-      "</a>" +
-      "</span>" +
-      "</div>" +
-      "</div>";
+        var clicked_content =
+          '<div id="content">' +
+          "<h1>" +
+          name +
+          "</h1>" +
+          "</div>" +
+          "<div>" +
+          "<span>" +
+          "<b>Cuisines offered:</b> " +
+          cuisine +
+          "</span>" +
+          "</div>" +
+          "<div>" +
+          "<span>" +
+          "<b>Rating:</b> " +
+          rating +
+          "/5.0" +
+          "</span>" +
+          "</div>" +
+          "<div>" +
+          "<span>" +
+          "<b>Price range:</b> " +
+          price +
+          "</span>" +
+          "</div>" +
+          "<div>" +
+          "<span>" +
+          "<b>Number of Reviews:</b> " +
+          num_reviews +
+          "</span>" +
+          "</div>" +
+          "<div>" +
+          "<span>" +
+          "<b>Trip Advisor Link:</b> " +
+          "<a href = https://" +
+          trip_advisor_link +
+          ' target= "_blank" rel="noreferrer">' +
+          name +
+          "</a>" +
+          "</span>" +
+          "</div>" +
+          "</div>";
 
-    var hover_content = name;
-    var marker = new L.marker([latValue, lonValue])
-      .addTo(map)
-      .bindPopup(clicked_content)
-      .on("click", function (e) {
-        // console.log(clicked_content);
-        if (!clickedMarkers.includes(hover_content)) {
-          clickedMarkers.push(hover_content);
-          addToTable(values, clickedMarkers);
-        }
+        var hover_content = name;
+        var marker = new L.marker([latValue, lonValue])
+          .addTo(map)
+          .bindPopup(clicked_content)
+          .on("click", function (e) {
+            // console.log(clicked_content);
+            if (!clickedMarkers.includes(hover_content)) {
+              clickedMarkers.push(hover_content);
+              addToTable(values, clickedMarkers);
+            }
+          });
+
+        marker.bindTooltip(hover_content);
       });
-
-    marker.bindTooltip(hover_content);
+    }
   });
-});
+}
 
 function addToTable(values, clickedMarkers) {
   compareRows = compareRows + 1;
