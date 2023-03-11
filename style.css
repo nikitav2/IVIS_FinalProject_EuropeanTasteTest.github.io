@@ -91,6 +91,13 @@ html {
   /* position: absolute; */
   position: relative;
 }
+.instructions {
+  padding-bottom:10px;
+  text-align: center;
+  font-weight: 500;
+  display:block;
+  /* visibility:visible; */
+}
 
 .close_filter_btn {
   background-color: #2d8aa4; 

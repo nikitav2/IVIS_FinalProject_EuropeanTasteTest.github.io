@@ -21,11 +21,17 @@ var layer = new L.TileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png");
 // Adding layer to the map
 map.addLayer(layer);
 
+var markers = L.layerGroup();
+
 var compareRows = 0;
 var clickedMarkers = [];
 var isCityPresent = false;
 
-function loadData() {}
+var cityFilterValues = [];
+var priceFilterValues = [];
+var dietaryFilterValues = [];
+var ratingFilterValues = [];
+var cuisineFilterValues = [];
 
 function parseCuisine(cuisineVal) {
   cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
@@ -34,13 +40,136 @@ function parseCuisine(cuisineVal) {
   return cuisineVal;
 }
 
-function displayData(params) {
-  d3.csv("data.csv", function (i, crime) {
-    if (!isCityPresent) {
-      console.log("no city selected");
+function parseArg(evt, params) {
+  var toAdd = false;
+  var value = "";
+  if ("selected" in params) {
+    toAdd = true;
+    value = params["selected"];
+  } else {
+    toAdd = false;
+    value = params["deselected"];
+  }
+
+  if (evt == "city-filters") {
+    if (toAdd) {
+      cityFilterValues.push(value);
     } else {
-      crime.forEach(function (element) {
-        // console.log(i);
+      cityFilterValues.splice(cityFilterValues.indexOf(value), 1);
+    }
+  }
+
+  if (evt == "price-filters") {
+    if (toAdd) {
+      priceFilterValues.push(value);
+    } else {
+      priceFilterValues.splice(priceFilterValues.indexOf(value), 1);
+    }
+  }
+
+  if (evt == "restriction-filters") {
+    if (toAdd) {
+      dietaryFilterValues.push(value);
+    } else {
+      dietaryFilterValues.splice(dietaryFilterValues.indexOf(value), 1);
+    }
+  }
+
+  if (evt == "rating-filters") {
+    if (toAdd) {
+      ratingFilterValues.push(value);
+    } else {
+      ratingFilterValues.splice(ratingFilterValues.indexOf(value), 1);
+    }
+  }
+
+  if (evt == "cuisine-filters") {
+    if (toAdd) {
+      cuisineFilterValues.push(value);
+    } else {
+      cuisineFilterValues.splice(cuisineFilterValues.indexOf(value), 1);
+    }
+  }
+  console.log(cityFilterValues);
+  console.log(priceFilterValues);
+  console.log(dietaryFilterValues);
+  console.log(ratingFilterValues);
+  console.log(cuisineFilterValues);
+}
+
+function displayData(evt, params) {
+  // console.log("in display data");
+  parseArg(evt, params);
+  markers.clearLayers();
+
+  if (document.getElementById("city-filters").value == "") {
+    // console.log("no cities");
+    document.getElementById("instructions").style.visibility = "visible";
+  } else {
+    isCityPresent = true;
+    // console.log("city is present");
+    document.getElementById("instructions").style.visibility = "hidden";
+
+    // var price_filters = document.getElementById("price-filters");
+    // console.log(price_filters.attributes);
+    // price_filters.removeAttribute("disabled");
+    // console.log(price_filters.attributes);
+
+    var filterValues = document.getElementById("city-filters").value;
+    // console.log("these are filterValue: ", filterValues);
+
+    d3.csv("data.csv", function (i, totalData) {
+      var filteredData = totalData.filter(function (rest) {
+        var isValidCity = false;
+        var isValidPrice = false;
+        var isValidRating = false;
+        var isValidCuisine = false;
+        var isValidDiet = false;
+
+        if (cityFilterValues.includes(rest.City)) {
+          isValidCity = true;
+        }
+
+        if (
+          priceFilterValues.includes(rest.PriceRange) ||
+          priceFilterValues.length == 0
+        ) {
+          isValidPrice = true;
+        }
+        if (
+          ratingFilterValues.includes(rest.Rating) ||
+          ratingFilterValues.length == 0
+        ) {
+          isValidRating = true;
+        }
+        if (
+          dietaryFilterValues.includes(rest.CuisineStyle) ||
+          dietaryFilterValues.length == 0
+        ) {
+          isValidDiet = true;
+        }
+        if (
+          cuisineFilterValues.includes(rest.CuisineStyle) ||
+          cuisineFilterValues.length == 0
+        ) {
+          isValidCuisine = true;
+        }
+
+        return (
+          isValidCity &&
+          isValidPrice &&
+          isValidRating &&
+          isValidDiet &&
+          isValidCuisine
+        );
+      });
+
+      console.log("\n\n\n\nin filteredData");
+      filteredData.forEach(function (element) {
+        console.log(element);
+      });
+
+      filteredData.forEach(function (element) {
         var latValue = parseFloat(element.lat);
         var lonValue = parseFloat(element.lng);
         var name = element.Name;
@@ -108,7 +237,7 @@ function displayData(params) {
 
         var hover_content = name;
         var marker = new L.marker([latValue, lonValue])
-          .addTo(map)
+          // .addTo(map)
           .bindPopup(clicked_content)
           .on("click", function (e) {
             // console.log(clicked_content);
@@ -119,9 +248,11 @@ function displayData(params) {
           });
 
         marker.bindTooltip(hover_content);
+        markers.addLayer(marker);
       });
-    }
-  });
+      markers.addTo(map);
+    });
+  }
 }
 
 function addToTable(values, clickedMarkers) {

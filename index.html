@@ -57,10 +57,13 @@
       <div class="article2">
         <div class="filter_box">
             <button class = "close_filter_btn" onclick="closeFilters()"> <span class="material-symbols-outlined md-10">close</span></button>
+            <div id="instructions" class = "instructions">
+                <span>Select a City</span>
+            </div>
             <div class='FilterRowDiv'>
                 <div class='FilterNameTag withInfo'>City</div>
                     
-                    <select id="city-filters" data-placeholder="Type city..." multiple class="chosen-select" style="width:12vw;align-self:center">
+                    <select id="city-filters" data-placeholder="Type City..." multiple class="chosen-select" style="width:12vw;align-self:center">
                     
                     <script>
                         d3.json("City.json", function (i, cities){
@@ -78,7 +81,6 @@
                     <select id = "price-filters" data-placeholder="Type Price Range..." multiple clearable class="chosen-select" style="width:12vw;align-self:center">
                     <script>
                         d3.json("PriceRange.json", function (i, ranges){
-                            // console.log(city);
                             ranges.forEach(range => {
                                 $('#price-filters').append($('<option value="' + range + '">' + range + '</option>'));
                             });
@@ -92,7 +94,6 @@
                     <select id="restriction-filters" data-placeholder="Type Dietary Restrictions..." multiple clearable class="chosen-select" style="width:12vw;align-self:center">
                     <script>
                         d3.json("DietaryRestrictions.json", function (i, restrictions){
-                            // console.log(city);
                             restrictions.forEach(rest => {
                                 $('#restriction-filters').append($('<option value="' + rest + '">' + rest + '</option>'));
                             });
@@ -107,7 +108,6 @@
                     <option value=""></option>
                     <script>
                         d3.json("Rating.json", function (i, ratings){
-                            // console.log(city);
                             ratings.forEach(rating => {
                                 $('#rating-filters').append($('<option value="' + rating + '">' + rating + '</option>'));
                             });
@@ -120,19 +120,16 @@
             <div class='FilterRowDiv'>
                 <div class='FilterNameTag withInfo'>Cuisines</div>
                     
-                <!-- <form action="http://httpbin.org/post" method="post" > -->
                     <select id="cuisine-filters" data-placeholder="Type Cuisine..." multiple  class="chosen-select" style="width:12vw;align-self:center">
                     <option value=""></option>
                     <script>
                         d3.json("CuisineStyle.json", function (i, styles){
-                            // console.log(city);
                             styles.forEach(style => {
                                 $('#cuisine-filters').append($('<option value="' + style + '">' + style + '</option>'));
                             });
                         });
                     </script>
                     </select>
-                <!-- </form> -->
             </div>
         </div>
       </div>

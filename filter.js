@@ -15,9 +15,9 @@ function openFilters() {
       alert("Can only select 4 options");
     })
     .on("change", function (evt, params) {
-      console.log(evt);
-      console.log(params);
-      displayData(params);
+      // console.log(evt.target.id);
+      // console.log(params);
+      displayData(evt.target.id, params);
     });
 }
 
