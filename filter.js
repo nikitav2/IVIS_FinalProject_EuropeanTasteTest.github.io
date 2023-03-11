@@ -19,6 +19,11 @@ function openFilters() {
     });
 }
 
+function scrollToTable() {
+  var tableElement = document.getElementsByClassName("viewMenu")[0].offsetTop;
+  document.scrollingElement.scrollTop = tableElement;
+}
+
 function closeFilters() {
   console.log("closed filters");
   document.getElementsByClassName("article2")[0].style.visibility = "hidden";
