@@ -1,3 +1,4 @@
+//4353 data points
 var corner1 = L.latLng(29.735139, -34.49296),
   corner2 = L.latLng(81.47299, 46.75348),
   bounds = L.latLngBounds(corner1, corner2);
@@ -26,6 +27,7 @@ var clickedMarkers = [];
 
 d3.csv("data.csv", function (i, crime) {
   crime.forEach(function (element) {
+    // console.log(i);
     var latValue = parseFloat(element.lat);
     var lonValue = parseFloat(element.lng);
     var name = element.Name;

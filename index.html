@@ -4,19 +4,12 @@
 <head>
     <title>European Taste Test</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <!-- <script src="https://kit.fontawesome.com/a675ac714b.js" crossorigin="anonymous"></script> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" /> -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 
     <script src="//d3js.org/d3.v4.min.js"></script>
-    <!-- <script src="//d3js.org/topojson.v1.min.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/d3@7"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <!-- <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> -->
-    <!-- <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script> -->
-    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" /> -->
 
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
@@ -52,122 +45,83 @@
       </map>
     
       <script src = "filter.js"></script>
-      <div  class="article2">
-        <div class ="filter_box">
+      <div class="article2">
+        <div class="filter_box">
             <button class = "close_filter_btn" onclick="closeFilters()"> <span class="material-symbols-outlined md-10">close</span></button>
-            <div class= "dropdown">
-                <div class = "drop_area">City
-                    <button class = "dropbtn2" onclick="openCityFilter()"><span class="material-symbols-outlined">expand_more</span></button>
-               
-                    <div id = "city_dropdown" class = "dropdown-content">
-                        <a href="#" onclick="click_filter_value(this)">All</a>
-                        <a href="#">Amsterdam</a>
-                        <a href="#">Berlin</a>
-                        <a href="#">Stockholm</a>
-                    </div>
-                </div>
-            </div>
-            <div class= "dropdown">
-                <div class = "drop_area">Dietary Restrictions
-                    <button class = "dropbtn2" onclick = "openDietaryFilter()"><span class="material-symbols-outlined">expand_more</span></button>
-                    <div id = "dietary_dropdown" class = "dropdown-content">
-                        <a href="#">None</a>
-                        <a href="#">Vegetarian</a>
-                        <a href="#">Vegan</a>
-                        <a href="#">Gluten allergy</a>
-                        <a href="#">Lactose Intolerant</a>
-                    </div>
-                </div>
-            </div>
-            <div class= "dropdown">
-                <div class = "drop_area">Price Range
-                    <button class = "dropbtn2" onclick = "openPriceRangeFilter()"><span class="material-symbols-outlined">expand_more</span></button>
-                    <div id = "price_range_dropdown" class = "dropdown-content">
-                        <a href="#">All</a>
-                        <a href="#">$</a>
-                        <a href="#">$$</a>
-                        <a href="#">$$$</a>
-                        <a href="#">$$$$</a>
-                    </div>
-                </div>
+            <div class='FilterRowDiv'>
+                <div class='FilterNameTag withInfo'>City</div>
+                    
+                <form action="http://httpbin.org/post" method="post" class="form_select">
+                    <select data-placeholder="Type city..." multiple clearable class="chosen-select" style="width:100%;height:100%"> <span class="material-symbols-outlined md-10">expand</span>
+                    <option value=""></option>
+                    <option>Stockholm</option>
+                    <option>Berlin</option>
+                    <option>Amsterdam</option>
+                    <option>London</option>
+                    <option>Oslo</option>
+                    </select>
+                </form>
             </div>
 
-            <div class= "dropdown">
-                <div class = "drop_area">Ratings
-                    <button class = "dropbtn2" onclick = "openRatingsFilter()"><span class="material-symbols-outlined">expand_more</span></button>
-                    <div id = "ratings_dropdown" class = "dropdown-content">
-                        <a href="#">All</a>
-                        <a href="#">1/5+</a>
-                        <a href="#">2/5+</a>
-                        <a href="#">3/5+</a>
-                        <a href="#">4/5+</a>
-                        <a href="#">5/5</a>
-                    </div>
-                </div>
+            <div class='FilterRowDiv'>
+                <div class='FilterNameTag withInfo'>Price Range</div>
+                    
+                <form action="http://httpbin.org/post" method="post" class="form_select">
+                    <select data-placeholder="Type Price Range..." multiple clearable class="chosen-select" style="width:100%"> <span class="material-symbols-outlined md-10">expand</span>
+                    <option value=""></option>
+                    <option>$</option>
+                    <option>$$</option>
+                    <option>$$$</option>
+                    <option>$$$$</option>
+                    </select>
+                </form>
             </div>
-            <div class= "dropdown">
-                <div class ="drop_area">Cuisines
-                    <button class = "dropbtn2" onclick = "openCuisineFilter()"><span class="material-symbols-outlined">expand_more</span></button>
-                    <div id = "cuisine_dropdown" class = "dropdown-content">
-                        <a href="#">Italian</a>
-                        <a href="#">Dutch</a>
-                        <a href="#">European</a>
-                        <a href="#">American</a>
-                        <a href="#">Asian</a>
-                        <a href="#">Bar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <!-- <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openDietaryFilter()">Dietary Restrictions<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
-                <div id = "dietary_dropdown" class = "dropdown-content">
-                    <a href="#">None</a>
-                    <a href="#">Vegetarian</a>
-                    <a href="#">Vegan</a>
-                    <a href="#">Gluten allergy</a>
-                    <a href="#">Lactose Intolerant</a>
-                </div>
-            </div> -->
-            <!-- <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openPriceRangeFilter()">Price Range<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
-                <div id = "price_range_dropdown" class = "dropdown-content">
-                    <a href="#">All</a>
-                    <a href="#">$</a>
-                    <a href="#">$$</a>
-                    <a href="#">$$$</a>
-                    <a href="#">$$$$</a>
-                </div>
-            </div> -->
-            <!-- <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openRatingsFilter()">Ratings<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
-                <div id = "ratings_dropdown" class = "dropdown-content">
-                    <a href="#">All</a>
-                    <a href="#">1/5+</a>
-                    <a href="#">2/5+</a>
-                    <a href="#">3/5+</a>
-                    <a href="#">4/5+</a>
-                    <a href="#">5/5</a>
-                </div>
-            </div> -->
-            <!-- <div class= "dropdown">
-                <button class = "dropbtn" onclick = "openCuisineFilter()">Cuisines<i class="fa-sharp fa-solid fa-circle-chevron-down" style="margin-left:10px"></i></button>
-                <div id = "cuisine_dropdown" class = "dropdown-content">
-                    <a href="#">Italian</a>
-                    <a href="#">Dutch</a>
-                    <a href="#">European</a>
-                    <a href="#">American</a>
-                    <a href="#">Asian</a>
-                    <a href="#">Bar</a>
-                </div>
-            </div>
-        </div> -->
 
-        <div class="filter_tags">
-            <b>Current Filters</b>
+            <div class='FilterRowDiv'>
+                <div class='FilterNameTag withInfo'>Dietary Restrictions</div>
+                    
+                <form action="http://httpbin.org/post" method="post" class="form_select">
+                    <select data-placeholder="Type Dietary Restrictions..." multiple clearable class="chosen-select" style="width:100%"> <span class="material-symbols-outlined md-10">expand</span>
+                    <option value=""></option>
+                    <option>Gluten Free</option>
+                    <option>Vegan</option>
+                    <option>Vegetarian</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class='FilterRowDiv'>
+                <div class='FilterNameTag withInfo'>Ratings</div>
+                    
+                <form action="http://httpbin.org/post" method="post" class="form_select">
+                    <select data-placeholder="Type Rating..." multiple clearable class="chosen-select" style="width:100%"> <span class="material-symbols-outlined md-10">expand</span>
+                    <option value=""></option>
+                    <option>1/5</option>
+                    <option>2/5</option>
+                    <option>3/5</option>
+                    <option>4/5</option>
+                    <option>5/5</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class='FilterRowDiv'>
+                <div class='FilterNameTag withInfo'>Cuisines</div>
+                    
+                <form action="http://httpbin.org/post" method="post" class="form_select">
+                    <select data-placeholder="Type Cuisine..." multiple clearable class="chosen-select" style="width:100%"> <span class="material-symbols-outlined md-10">expand</span>
+                    <option value=""></option>
+                    <option>Italian</option>
+                    <option>Swedish</option>
+                    <option>Mediterranean</option>
+                    <option>American</option>
+                    <option>Mexican</option>
+                    </select>
+                </form>
+            </div>
         </div>
-    
       </div>
+    </div>
       </section>
 
 

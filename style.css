@@ -94,13 +94,15 @@ html {
 }
 
 .close_filter_btn {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   background-color: #276ccd; 
   border: none;
-  margin-left: 75%;
+  margin-left: 80%;
   border-radius: 30px;
   color: white;
-  padding: 6px 10px;
+  padding-top:6px;
+  padding-left:6px;
+  padding-right:6px;
+  /* padding: 6px 10px; */
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -116,13 +118,75 @@ html {
   z-index: 1;
   visibility: hidden;
   padding-left:10px;
-  height:400px;
+  height:100%;
   width: 100%;
   flex:1;
   text-align:left;
   border-radius: 20px;
   overflow-wrap:normal;
   overflow: auto;
+}
+
+.FilterNameTag.withInfo {
+  flex-direction: row;
+  /* margin-left:%; */
+  float:left;
+  font-size: medium;
+  width:15%;
+  /* align-items: center; */
+}
+
+.form_select{
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  /* justify-content: stretch; */
+  /* float:right; */
+  width: 75%;
+  text-align: left;
+  height:100%;
+  padding-bottom: 0.5em;
+  margin-top:5%;
+  margin-right:5%;
+  /* padding-right:8%; */
+  min-height: 3px;
+  background-color: #CFDEE2;
+  border-color: #CC5643;
+
+}
+
+.chosen_select_style {
+  background-color: #CC5643;
+}
+
+.FilterNameTag {
+  flex-shrink: 0;
+  flex:1;
+  font-size:medium;
+  display: flex;
+  color: black;
+  /* float:left; */
+  border-width: 5px;
+  border-color:#CC5643;
+  margin-top: 5%;
+  margin-right:5%;
+  /* width: 110px; */
+  width:15%;
+
+  /* margin: 0.5em 0px 0.7em 0px; */
+}
+
+.FilterRowDiv {
+  display: flex;
+  flex:1;
+  width:100%;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: #CC5643;
+  /* justify-content: stretch; */
+  text-align: left;
+  padding-bottom: 0.5em;
+  min-height: 3px;
 }
 
 .filter_tags {
