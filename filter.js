@@ -5,9 +5,18 @@ function openFilters() {
   document.getElementById("map").style.width = "80%";
   document.getElementsByClassName("open_filter_btn")[0].style.display = "none";
 
-  $(".chosen-select").chosen({
-    no_results_text: "Nothing found",
-  });
+  $(".chosen-select")
+    .chosen({
+      no_results_text: "Nothing found",
+      max_selected_options: 4,
+    })
+    .bind("chosen:maxselected", function () {
+      console.log("here");
+      alert("Can only select 4 options");
+    })
+    .on("change", function (evt, params) {
+      console.log(params);
+    });
 }
 
 function closeFilters() {
