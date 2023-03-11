@@ -143,13 +143,13 @@ function displayData(evt, params) {
           isValidRating = true;
         }
         if (
-          dietaryFilterValues.includes(rest.CuisineStyle) ||
+          dietaryFilterValues.includes(parseCuisine(rest.CuisineStyle)) ||
           dietaryFilterValues.length == 0
         ) {
           isValidDiet = true;
         }
         if (
-          cuisineFilterValues.includes(rest.CuisineStyle) ||
+          cuisineFilterValues.includes(parseCuisine(rest.CuisineStyle)) ||
           cuisineFilterValues.length == 0
         ) {
           isValidCuisine = true;
@@ -164,10 +164,10 @@ function displayData(evt, params) {
         );
       });
 
-      console.log("\n\n\n\nin filteredData");
-      filteredData.forEach(function (element) {
-        console.log(element);
-      });
+      // console.log("\n\n\n\nin filteredData");
+      // filteredData.forEach(function (element) {
+      //   console.log(element);
+      // });
 
       filteredData.forEach(function (element) {
         var latValue = parseFloat(element.lat);
