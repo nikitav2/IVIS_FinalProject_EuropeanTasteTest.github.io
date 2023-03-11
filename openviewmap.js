@@ -25,6 +25,13 @@ map.addLayer(layer);
 var compareRows = 0;
 var clickedMarkers = [];
 
+function parseCuisine(cuisineVal) {
+  cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
+  cuisineVal = cuisineVal.replaceAll("Options", "");
+  cuisineVal = cuisineVal.replaceAll("'", "");
+  return cuisineVal;
+}
+
 d3.csv("data.csv", function (i, crime) {
   crime.forEach(function (element) {
     // console.log(i);
@@ -32,7 +39,8 @@ d3.csv("data.csv", function (i, crime) {
     var lonValue = parseFloat(element.lng);
     var name = element.Name;
 
-    var cuisine = element.CuisineStyle;
+    var cuisine = parseCuisine(element.CuisineStyle);
+
     var rating = element.Rating;
     var price = element.PriceRange;
     var num_reviews = Number(element.NumberofReviews).toFixed(0);
