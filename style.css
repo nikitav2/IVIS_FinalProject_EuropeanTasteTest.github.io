@@ -52,7 +52,7 @@ map {
   width: 100%;
   background: #df7d6e;
   z-index: 0;
-  flex:1;
+  flex: 1;
   flex-direction: column;
 }
 body {
@@ -80,13 +80,13 @@ html {
   margin-top:30px;
   /* height:100px; */
 
-  /* min-height: 100vh; */
-  
+  min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
   flex-direction: column;
-  padding-top: 10px;
-  /* padding-left:30px; */
+  padding-left: 30px;
   z-index: 1;
-  background-color: #CFDEE2;
+  background: #df7d6e;
   font-size: x-large;
   overflow:auto;
   /* position: absolute; */
@@ -197,6 +197,7 @@ html {
   visibility: hidden;
   padding-top: 30px;
   padding-bottom:40px;
+  
   padding-left: 30px;
   /* height:750px; */
   height:200px;
@@ -274,7 +275,7 @@ html {
   font-size:medium;
 }
 
-.comparetable {
+.comparable {
   flex-direction: row;
   background: #CFDEE2;
   z-index: 1;
@@ -287,7 +288,6 @@ html {
   width: 92%;
   height:500px;
 
-  border-radius: 20px;
   text-align:center;
   overflow-y: scroll;
   overflow-x: scroll;
@@ -548,5 +548,52 @@ section::after {
 }
 .dropdown-content a:hover {background-color: #ddd;}
 
-
 .show {display: block;}
+
+/* For the menu showing either table or chart: */
+
+.viewMenu button {
+  cursor: pointer;
+  width: 49%;
+  height: 100%;
+  color: #fff;
+  background-color: #CC5643;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+}
+
+.viewMenu :hover{
+  background: #fff;
+  color: black;
+}
+
+.viewMenu .button_active {
+  background: #A64637;
+  pointer-events: none;
+}
+
+
+.content_inside {
+  display: none;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.content_inside_active {
+  display: block;
+}
+
+.viewMenu {
+  background-color: #df7d6e;
+  text-align: center;
+  height: 3em;
+}
+
+.chartSection {
+  text-align: center;
+}
+
+
