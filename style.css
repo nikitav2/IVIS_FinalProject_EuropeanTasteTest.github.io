@@ -146,6 +146,17 @@ html {
   align-items: center;
 }
 
+.Favorites.withInfo {
+  flex-direction: row;
+  position: relative;
+  margin-left:auto;
+  float:left;
+  font-size: small;
+  width:60px;
+  /* padding-right: 10px; */
+  align-items: center;
+}
+
 .form_select{
   display: flex;
   flex-direction: row;
@@ -269,6 +280,13 @@ html {
   font-size:medium;
 }
 
+.barchart {
+  align-self: flex-start;
+  flex-direction: row;
+  /* margin-left:20%; */
+
+}
+
 .comparable {
   flex-direction: row;
   background: #CFDEE2;
@@ -302,12 +320,79 @@ html {
 }
 
 .delete {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  background-color: #276ccd; /* Green */
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+  background-color: #CFDEE2; 
   border: none;
-  border-radius: 15px;
-  color: white;
-  padding: 15px 32px;
+  border-radius: 30px;
+  color: black;
+  padding: 12px 17px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  justify-content: center;
+  margin-left:10%;
+}
+
+.view_favorites {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #d9ea5a; 
+  border: none;
+  border-radius: 30px;
+  padding: 4px 6px;
+  margin-left:5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  justify-content: center; 
+}
+
+.FavoriteSection {
+  flex:1;
+  flex-direction: row;
+  font-size: small;
+  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.favoriteRow {
+  width:80%;
+  padding-left:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #2fb1d5;
+  flex-direction: row;
+  display: block;
+  flex:1;
+}
+
+.delete_fav {
+  background-color: #2fb1d5; 
+  border: none;
+
+  border-radius: 30px;
+  padding-left:35px;
+  padding-top:10px; 
+  display: inline-block;
+  cursor: pointer;
+  justify-content: center; 
+}
+
+.material-symbols { font-size: 50px; }
+
+
+.favorite {
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+  background-color: #CFDEE2; 
+  border: none;
+  border-radius: 30px;
+  color: black;
+  padding: 12px 17px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -315,7 +400,6 @@ html {
   cursor: pointer;
   justify-content: center;
 }
-
 
 .tablevalues thead tr {
 

@@ -21,6 +21,11 @@ function openFilters() {
     });
 }
 
+function showFavorites() {
+  console.log("in favorites");
+  displayData("favorites", "");
+}
+
 function scrollToTable() {
   var tableElement = document.getElementsByClassName("viewMenu")[0].offsetTop;
   document.scrollingElement.scrollTop = tableElement;

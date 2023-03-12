@@ -20,6 +20,8 @@ var layer = new L.TileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png");
 
 // Adding layer to the map
 map.addLayer(layer);
+// displayBarChart();
+// formatData();
 
 var markers = L.layerGroup();
 
@@ -32,6 +34,8 @@ var priceFilterValues = [];
 var dietaryFilterValues = [];
 var ratingFilterValues = [];
 var cuisineFilterValues = [];
+// var favoriteName = ["Bagels & Beans", "Campo Di Fiori", "C"];
+var favoriteName = [];
 
 function parseCuisine(cuisineVal) {
   cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
@@ -102,24 +106,32 @@ function parseArg(evt, params) {
 
 function displayData(evt, params) {
   // console.log("in display data");
-  parseArg(evt, params);
-  markers.clearLayers();
+  var isDisplayFavorites = false;
+  // console.log(evt);
+  if (evt == "favorites") {
+    isDisplayFavorites = true;
+    // console.log(evt, isDisplayFavorites);
+  } else {
+    parseArg(evt, params);
+  }
 
-  if (document.getElementById("city-filters").value == "") {
+  markers.clearLayers();
+  console.log(isDisplayFavorites);
+
+  if (
+    document.getElementById("city-filters").value == "" &&
+    !isDisplayFavorites
+  ) {
     // console.log("no cities");
     document.getElementById("instructions").style.visibility = "visible";
-  } else {
+  } else if (
+    isDisplayFavorites == true ||
+    document.getElementById("city-filters").value != ""
+  ) {
     isCityPresent = true;
+    // console.log("in second part of is");
     // console.log("city is present");
     document.getElementById("instructions").style.visibility = "hidden";
-
-    // var price_filters = document.getElementById("price-filters");
-    // console.log(price_filters.attributes);
-    // price_filters.removeAttribute("disabled");
-    // console.log(price_filters.attributes);
-
-    var filterValues = document.getElementById("city-filters").value;
-    // console.log("these are filterValue: ", filterValues);
 
     d3.csv("data.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
@@ -130,6 +142,13 @@ function displayData(evt, params) {
         var isValidDiet = false;
 
         var parsedCuisineVals = parseCuisine(rest.CuisineStyle);
+
+        if (isDisplayFavorites) {
+          // console.log("display favorites in here");
+          if (favoriteName.includes(rest.Name)) {
+            return true;
+          }
+        }
 
         if (cityFilterValues.includes(rest.City)) {
           isValidCity = true;
@@ -169,14 +188,14 @@ function displayData(evt, params) {
         );
       });
 
+      // console.log(totalData[3]);
+      // console.log(filteredData[3]);
       console.log("filtereData length: ", filteredData.length);
 
-      // console.log("\n\n\n\nin filteredData");
-      // filteredData.forEach(function (element) {
-      //   console.log(element);
-      // });
-
       filteredData.forEach(function (element) {
+        // console.log(unpack(element, "CuisineStyle"));
+        // console.log(unpack(element, "City"));
+
         var latValue = parseFloat(element.lat);
         var lonValue = parseFloat(element.lng);
         var name = element.Name;
@@ -257,9 +276,162 @@ function displayData(evt, params) {
         marker.bindTooltip(hover_content);
         markers.addLayer(marker);
       });
+
       markers.addTo(map);
     });
   }
+}
+
+function displayBarChart() {
+  console.log("here");
+  var margin = { top: 10, right: 30, bottom: 20, left: 30 },
+    width = 500,
+    height = 500;
+
+  // append the svg object to the body of the page
+  var svg = d3
+    .select("#barchart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // Parse the Data
+  d3.csv("data.csv", function (data) {
+    var subgroups = data.columns.slice(1);
+    // console.log("in data: ", data.columns.slice(1));
+    console.log("in data: ", data.columns);
+
+    var x = d3
+      .scaleBand()
+      .range([0, width])
+      .domain(
+        data.map(function (d) {
+          return d.City;
+        })
+      )
+      .padding(0.2);
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
+
+    // Add Y axis
+    var y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+    svg.append("g").call(d3.axisLeft(y));
+
+    // Bars
+    svg
+      .selectAll("mybar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", function (d) {
+        return x(d.City);
+      })
+      .attr("y", function (d) {
+        return y(d.Rating);
+      })
+      .attr("width", x.bandwidth())
+      .attr("height", function (d) {
+        return height - y(d.Rating);
+      })
+      .attr("fill", "#69b3a2");
+
+    /*
+    // List of groups = species here = value of the first column called group -> I show them on the X axis
+    var groups = d3
+      .map(data, function (d) {
+        return d.group;
+      })
+      .keys();
+
+    // Add X axis
+    var x = d3.scaleBand().domain(groups).range([0, width]).padding([0.2]);
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x).tickSize(0));
+
+    // Add Y axis
+    var y = d3.scaleLinear().domain([0, 40]).range([height, 0]);
+    svg.append("g").call(d3.axisLeft(y));
+
+    // Another scale for subgroup position?
+    var xSubgroup = d3
+      .scaleBand()
+      .domain(subgroups)
+      .range([0, x.bandwidth()])
+      .padding([0.05]);
+
+    // color palette = one color per subgroup
+    var color = d3
+      .scaleOrdinal()
+      .domain(subgroups)
+      .range(["#e41a1c", "#377eb8", "#4daf4a"]);
+
+    // Show the bars
+    svg
+      .append("g")
+      .selectAll("g")
+      // Enter in data = loop group per group
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("transform", function (d) {
+        return "translate(" + x(d.group) + ",0)";
+      })
+      .selectAll("rect")
+      .data(function (d) {
+        return subgroups.map(function (key) {
+          return { key: key, value: d[key] };
+        });
+      })
+      .enter()
+      .append("rect")
+      .attr("x", function (d) {
+        return xSubgroup(d.key);
+      })
+      .attr("y", function (d) {
+        return y(d.value);
+      })
+      .attr("width", xSubgroup.bandwidth())
+      .attr("height", function (d) {
+        return height - y(d.value);
+      })
+      .attr("fill", function (d) {
+        return color(d.key);
+      });
+      */
+  });
+}
+
+function formatData() {
+  d3.csv("data.csv", function (data) {
+    var root = d3
+      .hierarchy(
+        {
+          values: d3
+            .nest()
+            .key(function (d) {
+              return d.City;
+            })
+            .entries(data),
+        },
+        function (d) {
+          return d.values;
+        }
+      )
+      .sum(function (d) {
+        return d.Rating;
+      });
+
+    console.log(root);
+  });
 }
 
 function addToTable(values, clickedMarkers) {
@@ -268,24 +440,68 @@ function addToTable(values, clickedMarkers) {
   var row = table.insertRow(compareRows);
 
   const delete_button = document.createElement("button");
+  const delete_icon = document.createElement("span");
+  delete_icon.className = "material-symbols-outlined md-48";
+  delete_icon.appendChild(document.createTextNode("delete"));
+  delete_button.append(delete_icon);
   var id_val = "deleteButton" + values[0];
   var row_id_val = "row" + values[0];
   row.id = row_id_val;
 
   delete_button.id = id_val;
   delete_button.className = "delete";
-  delete_button.innerText = "Delete";
+  // delete_button.innerText = "Delete";
+
+  const favorite_button = document.createElement("button");
+  const favorite_icon = document.createElement("span");
+  favorite_icon.className = "material-symbols-outlined md-48";
+  favorite_icon.appendChild(document.createTextNode("star"));
+  var fav_id_val = "favoriteButton" + values[0];
+  favorite_button.id = fav_id_val;
+  favorite_button.className = "favorite";
+  favorite_button.append(favorite_icon);
+  // favorite_button.innerText = "Favorite";
 
   var nameCell = row.insertCell(0);
   var cuisineCell = row.insertCell(1);
   var ratingCell = row.insertCell(2);
   var priceRangeCell = row.insertCell(3);
+
+  row.appendChild(favorite_button);
   row.appendChild(delete_button);
 
   nameCell.innerHTML = values[0];
   cuisineCell.innerHTML = values[3];
   ratingCell.innerHTML = values[4];
   priceRangeCell.innerHTML = values[5];
+
+  favorite_button.addEventListener("click", () => {
+    var restName = values[0];
+
+    if (!favoriteName.includes(restName)) {
+      favoriteName.push(restName);
+      // console.log("here");
+      var fav = document.createElement("div");
+      fav.className = "favoriteRow";
+      fav.id = "fav" + restName;
+      fav.appendChild(document.createTextNode(restName));
+
+      const delete_fav = document.createElement("button");
+      const delete_fav_icon = document.createElement("span");
+      delete_fav_icon.className = "material-symbols-outlined";
+      delete_fav_icon.appendChild(document.createTextNode("delete"));
+      delete_fav.append(delete_fav_icon);
+      delete_fav.className = "delete_fav";
+
+      fav.appendChild(delete_fav);
+      document.getElementById("favorite-section").appendChild(fav);
+
+      delete_fav.addEventListener("click", () => {
+        favoriteName.splice(favoriteName.indexOf(restName), 1);
+        document.getElementById(fav.id).remove();
+      });
+    }
+  });
 
   delete_button.addEventListener("click", () => {
     clickedMarkers.splice(clickedMarkers.indexOf(values[0]), 1);
