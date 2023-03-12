@@ -35,8 +35,11 @@ var cuisineFilterValues = [];
 
 function parseCuisine(cuisineVal) {
   cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
-  cuisineVal = cuisineVal.replaceAll("Options", "");
+  cuisineVal = cuisineVal.replaceAll(" Options", "");
+  cuisineVal = cuisineVal.replaceAll(" Friendly", "");
   cuisineVal = cuisineVal.replaceAll("'", "");
+  cuisineVal = cuisineVal.split(", ");
+  // console.log("in parseCuisine: ", cuisineVal);
   return cuisineVal;
 }
 
@@ -90,11 +93,11 @@ function parseArg(evt, params) {
       cuisineFilterValues.splice(cuisineFilterValues.indexOf(value), 1);
     }
   }
-  console.log(cityFilterValues);
-  console.log(priceFilterValues);
-  console.log(dietaryFilterValues);
-  console.log(ratingFilterValues);
-  console.log(cuisineFilterValues);
+  // console.log(cityFilterValues);
+  // console.log(priceFilterValues);
+  // console.log(dietaryFilterValues);
+  // console.log(ratingFilterValues);
+  // console.log(cuisineFilterValues);
 }
 
 function displayData(evt, params) {
@@ -126,6 +129,8 @@ function displayData(evt, params) {
         var isValidCuisine = false;
         var isValidDiet = false;
 
+        var parsedCuisineVals = parseCuisine(rest.CuisineStyle);
+
         if (cityFilterValues.includes(rest.City)) {
           isValidCity = true;
         }
@@ -143,13 +148,13 @@ function displayData(evt, params) {
           isValidRating = true;
         }
         if (
-          dietaryFilterValues.includes(parseCuisine(rest.CuisineStyle)) ||
+          dietaryFilterValues.every((v) => parsedCuisineVals.includes(v)) ||
           dietaryFilterValues.length == 0
         ) {
           isValidDiet = true;
         }
         if (
-          cuisineFilterValues.includes(parseCuisine(rest.CuisineStyle)) ||
+          cuisineFilterValues.every((v) => parsedCuisineVals.includes(v)) ||
           cuisineFilterValues.length == 0
         ) {
           isValidCuisine = true;
@@ -163,6 +168,8 @@ function displayData(evt, params) {
           isValidCuisine
         );
       });
+
+      console.log("filtereData length: ", filteredData.length);
 
       // console.log("\n\n\n\nin filteredData");
       // filteredData.forEach(function (element) {

@@ -1,5 +1,5 @@
 function openFilters() {
-  console.log("clicked filters");
+  // console.log("clicked filters");
   document.getElementsByClassName("article2")[0].style.visibility = "visible";
   document.getElementsByClassName("filter_box")[0].style.visibility = "visible";
   document.getElementById("map").style.width = "80%";
@@ -27,11 +27,12 @@ function scrollToTable() {
 }
 
 function closeFilters() {
-  console.log("closed filters");
+  // console.log("closed filters");
   document.getElementsByClassName("article2")[0].style.visibility = "hidden";
   document.getElementsByClassName("filter_box")[0].style.visibility = "hidden";
   document.getElementById("map").style.width = "100%";
   document.getElementsByClassName("open_filter_btn")[0].style.display = "block";
+  document.getElementById("instructions").style.display = "none";
 }
 
 function click_filter_value(obj) {
