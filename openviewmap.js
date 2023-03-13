@@ -203,12 +203,11 @@ function displayData(evt, params) {
 
       // console.log(totalData[3]);
       // console.log(filteredData[3]);
-      console.log("filtereData length: ", filteredData.length);
+      console.log("\n\n\n");
+      console.log("filtereData length from filters: ", filteredData.length);
+      console.log(filteredData);
 
       filteredData.forEach(function (element) {
-        // console.log(unpack(element, "CuisineStyle"));
-        // console.log(unpack(element, "City"));
-
         var latValue = parseFloat(element.lat);
         var lonValue = parseFloat(element.lng);
         var name = element.Name;
@@ -321,7 +320,7 @@ function displayData2(evt, params) {
     // console.log("city is present");
     document.getElementById("instructions").style.visibility = "hidden";
 
-    d3.csv("final_csv_small1.csv", function (i, totalData) {
+    d3.csv("final_csv_small2.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
         var isValidCity = false;
         var isValidPrice = false;
@@ -384,8 +383,8 @@ function createSunBurst(filteredData) {
 
   d3.select("#sunchart").remove();
 
-  console.log("filtereData length: ", filteredData.length);
-  // console.log(filteredData);
+  console.log("filtereData length from sunburst: ", filteredData.length);
+  console.log(filteredData);
 
   var nest = d3
     .nest()
