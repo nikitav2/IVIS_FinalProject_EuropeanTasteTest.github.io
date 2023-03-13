@@ -129,7 +129,7 @@ function displayData(evt, params) {
   }
 
   markers.clearLayers();
-  console.log(isDisplayFavorites);
+  // console.log(isDisplayFavorites);
 
   if (
     document.getElementById("city-filters").value == "" &&
@@ -157,48 +157,48 @@ function displayData(evt, params) {
         var parsedCuisineVals = parseCuisine(rest.CuisineStyle);
 
         if (isDisplayFavorites) {
-          // console.log("display favorites in here");
           if (favoriteName.includes(rest.Name)) {
+            console.log("display favorites in here: ", favoriteName);
             return true;
           }
-        }
+        } else {
+          if (cityFilterValues.includes(rest.City)) {
+            isValidCity = true;
+          }
 
-        if (cityFilterValues.includes(rest.City)) {
-          isValidCity = true;
-        }
+          if (
+            priceFilterValues.includes(rest.PriceRange) ||
+            priceFilterValues.length == 0
+          ) {
+            isValidPrice = true;
+          }
+          if (
+            ratingFilterValues.includes(rest.Rating) ||
+            ratingFilterValues.length == 0
+          ) {
+            isValidRating = true;
+          }
+          if (
+            dietaryFilterValues.every((v) => parsedCuisineVals.includes(v)) ||
+            dietaryFilterValues.length == 0
+          ) {
+            isValidDiet = true;
+          }
+          if (
+            cuisineFilterValues.every((v) => parsedCuisineVals.includes(v)) ||
+            cuisineFilterValues.length == 0
+          ) {
+            isValidCuisine = true;
+          }
 
-        if (
-          priceFilterValues.includes(rest.PriceRange) ||
-          priceFilterValues.length == 0
-        ) {
-          isValidPrice = true;
+          return (
+            isValidCity &&
+            isValidPrice &&
+            isValidRating &&
+            isValidDiet &&
+            isValidCuisine
+          );
         }
-        if (
-          ratingFilterValues.includes(rest.Rating) ||
-          ratingFilterValues.length == 0
-        ) {
-          isValidRating = true;
-        }
-        if (
-          dietaryFilterValues.every((v) => parsedCuisineVals.includes(v)) ||
-          dietaryFilterValues.length == 0
-        ) {
-          isValidDiet = true;
-        }
-        if (
-          cuisineFilterValues.every((v) => parsedCuisineVals.includes(v)) ||
-          cuisineFilterValues.length == 0
-        ) {
-          isValidCuisine = true;
-        }
-
-        return (
-          isValidCity &&
-          isValidPrice &&
-          isValidRating &&
-          isValidDiet &&
-          isValidCuisine
-        );
       });
 
       // console.log(totalData[3]);
@@ -321,7 +321,7 @@ function displayData2(evt, params) {
     // console.log("city is present");
     document.getElementById("instructions").style.visibility = "hidden";
 
-    d3.csv("final_csv_small.csv", function (i, totalData) {
+    d3.csv("final_csv_small1.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
         var isValidCity = false;
         var isValidPrice = false;
