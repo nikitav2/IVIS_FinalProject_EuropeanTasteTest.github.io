@@ -23,8 +23,6 @@ var layer = new L.TileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png");
 
 // Adding layer to the map
 map.addLayer(layer);
-// displayBarChart();
-// formatData();
 
 var markers = L.layerGroup();
 
@@ -37,7 +35,6 @@ var priceFilterValues = [];
 var dietaryFilterValues = [];
 var ratingFilterValues = [];
 var cuisineFilterValues = [];
-// var favoriteName = ["Bagels & Beans", "Campo Di Fiori", "C"];
 var favoriteName = [];
 
 function parseCuisine(cuisineVal) {
@@ -131,20 +128,20 @@ function displayData(evt, params) {
   markers.clearLayers();
   // console.log(isDisplayFavorites);
 
-  if (
-    document.getElementById("city-filters").value == "" &&
-    !isDisplayFavorites
-  ) {
+  if (document.getElementById("city-filters").value == "") {
     // console.log("no cities");
     document.getElementById("instructions").style.visibility = "visible";
-  } else if (
+    isCityPresent = false;
+  }
+
+  if (
     isDisplayFavorites == true ||
     document.getElementById("city-filters").value != ""
   ) {
-    isCityPresent = true;
-    // console.log("in second part of is");
-    // console.log("city is present");
-    document.getElementById("instructions").style.visibility = "hidden";
+    if (document.getElementById("city-filters").value != "") {
+      isCityPresent = true;
+      document.getElementById("instructions").style.visibility = "hidden";
+    }
 
     d3.csv("final_reduced.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
