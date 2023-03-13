@@ -2,16 +2,18 @@
 //copenhagen
 //59999,14419,Leon,London,,14430,3.5,,4,"[['First Timer but enjoyed it', 'One of the lastest very good chain'], ['09/14/2017', '09/11/2017']]",/Restaurant_Review-g186338-d12718774-Reviews-Leon-London_England.html,d12718774,51.5134,-0.13647
 
-var corner1 = L.latLng(30.735139, -50.49296),
-  corner2 = L.latLng(76.47299, 45.75348),
-  // corner2 = L.latLng(81.47299, 46.75348),
+// var corner1 = L.latLng(30.735139, -50.49296),
+//   // corner2 = L.latLng(76.47299, 45.75348),
+//   corner2 = L.latLng(81.47299, 46.75348),
+var corner1 = L.latLng(29.735139, -34.49296),
+  corner2 = L.latLng(81.47299, 46.75348),
   bounds = L.latLngBounds(corner1, corner2);
 
 var mapOptions = {
   maxBounds: bounds,
   center: [52.505, 17.5],
   zoom: 4,
-  minZoom: 4.3,
+  minZoom: 4,
   zoomDelta: 0.25,
   bounceAtZoomLimits: false,
 };
