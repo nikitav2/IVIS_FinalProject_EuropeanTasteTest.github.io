@@ -1,4 +1,7 @@
 //4353 data points
+//copenhagen
+//59999,14419,Leon,London,,14430,3.5,,4,"[['First Timer but enjoyed it', 'One of the lastest very good chain'], ['09/14/2017', '09/11/2017']]",/Restaurant_Review-g186338-d12718774-Reviews-Leon-London_England.html,d12718774,51.5134,-0.13647
+
 var corner1 = L.latLng(29.735139, -34.49296),
   corner2 = L.latLng(81.47299, 46.75348),
   bounds = L.latLngBounds(corner1, corner2);
@@ -43,6 +46,16 @@ function parseCuisine(cuisineVal) {
   cuisineVal = cuisineVal.replaceAll(" Friendly", "");
   cuisineVal = cuisineVal.replaceAll("'", "");
   cuisineVal = cuisineVal.split(", ");
+  // console.log("in parseCuisine: ", cuisineVal);
+  return cuisineVal;
+}
+
+function parseCuisine2(cuisineVal) {
+  cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
+  cuisineVal = cuisineVal.replaceAll(" Options", "");
+  cuisineVal = cuisineVal.replaceAll(" Friendly", "");
+  cuisineVal = cuisineVal.replaceAll("'", "");
+  // cuisineVal = cuisineVal.split(", ");
   // console.log("in parseCuisine: ", cuisineVal);
   return cuisineVal;
 }
@@ -133,7 +146,7 @@ function displayData(evt, params) {
     // console.log("city is present");
     document.getElementById("instructions").style.visibility = "hidden";
 
-    d3.csv("data.csv", function (i, totalData) {
+    d3.csv("final_reduced.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
         var isValidCity = false;
         var isValidPrice = false;
@@ -282,6 +295,309 @@ function displayData(evt, params) {
   }
 }
 
+function displayData2(evt, params) {
+  // console.log("in display data");
+  var isDisplayFavorites = false;
+  // console.log(evt);
+  if (evt == "favorites") {
+    isDisplayFavorites = true;
+    // console.log(evt, isDisplayFavorites);
+  } else {
+    parseArg(evt, params);
+  }
+
+  if (
+    document.getElementById("city-filters").value == "" &&
+    !isDisplayFavorites
+  ) {
+    // console.log("no cities");
+    document.getElementById("instructions").style.visibility = "visible";
+  } else if (
+    isDisplayFavorites == true ||
+    document.getElementById("city-filters").value != ""
+  ) {
+    isCityPresent = true;
+    // console.log("in second part of is");
+    // console.log("city is present");
+    document.getElementById("instructions").style.visibility = "hidden";
+
+    d3.csv("final_csv_small.csv", function (i, totalData) {
+      var filteredData = totalData.filter(function (rest) {
+        var isValidCity = false;
+        var isValidPrice = false;
+        var isValidRating = false;
+        var isValidCuisine = false;
+        var isValidDiet = false;
+
+        if (isDisplayFavorites) {
+          // console.log("display favorites in here");
+          if (favoriteName.includes(rest.Name)) {
+            return true;
+          }
+        }
+
+        if (cityFilterValues.includes(rest.City)) {
+          isValidCity = true;
+        }
+
+        if (
+          priceFilterValues.includes(rest.PriceRange) ||
+          priceFilterValues.length == 0
+        ) {
+          isValidPrice = true;
+        }
+        if (
+          ratingFilterValues.includes(rest.Rating) ||
+          ratingFilterValues.length == 0
+        ) {
+          isValidRating = true;
+        }
+        if (
+          dietaryFilterValues.includes(parseCuisine2(rest.CuisineStyle)) ||
+          dietaryFilterValues.length == 0
+        ) {
+          isValidDiet = true;
+        }
+        if (
+          cuisineFilterValues.includes(parseCuisine2(rest.CuisineStyle)) ||
+          cuisineFilterValues.length == 0
+        ) {
+          isValidCuisine = true;
+        }
+
+        return (
+          isValidCity &&
+          isValidPrice &&
+          isValidRating &&
+          isValidDiet &&
+          isValidCuisine
+        );
+      });
+      // console.log(filteredData);
+      createSunBurst(filteredData);
+    });
+  }
+}
+
+function createSunBurst(filteredData) {
+  document.getElementById("sunchart").remove();
+
+  d3.select("#sunchart").remove();
+
+  console.log("filtereData length: ", filteredData.length);
+  // console.log(filteredData);
+
+  var nest = d3
+    .nest()
+    .key(function (d) {
+      return d.City;
+    })
+    .key(function (d) {
+      return d.CuisineStyle;
+    })
+    .key(function (d) {
+      return d.PriceRange;
+    })
+    .key(function (d) {
+      return d.Rating;
+    })
+    .key(function (d) {
+      return d.Name;
+    })
+    .entries(filteredData);
+
+  var root1 = { key: "World", values: nest };
+
+  var data = {
+    name: "World",
+    children: root1.values.map(function (City) {
+      return {
+        name: City.key,
+        children: City.values.map(function (CuisineStyle) {
+          return {
+            name: CuisineStyle.key,
+            children: CuisineStyle.values.map(function (PriceRange) {
+              return {
+                name: PriceRange.key,
+                children: PriceRange.values.map(function (Rating) {
+                  return {
+                    name: Rating.key,
+                    children: Rating.values.map(function (Name) {
+                      return {
+                        name: Name.key,
+                        size: Name.values.length,
+                      };
+                    }),
+                  };
+                }),
+              };
+            }), //end of map(function(country){
+          };
+        }), //end of map(function(region){
+      };
+    }), //end of map(function(major){
+  }; //end of var declaration
+  // console.log(data);
+
+  var partition = (data) => {
+    const root = d3
+      .hierarchy(data)
+      .sum((d) => d.size)
+      .sort((a, b) => b.value - a.value);
+    return d3.partition().size([2 * Math.PI, root.height + 1])(root);
+  };
+  var color = d3
+    .scaleOrdinal()
+    .range(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
+  var format = d3.format(",d");
+  var width = 600;
+  var height = 750;
+  var radius = width / 6;
+  var arc = d3
+    .arc()
+    .startAngle((d) => d.x0)
+    .endAngle((d) => d.x1)
+    .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
+    .padRadius(radius * 1.5)
+    .innerRadius((d) => d.y0 * radius)
+    .outerRadius((d) => Math.max(d.y0 * radius, d.y1 * radius - 1));
+  const root = partition(data);
+  // console.log(root);
+  root.each((d) => (d.current = d));
+  // const svg = d3.select(DOM.svg(width, width))
+
+  var parentSunburst = document.getElementById("sunburst_parent");
+
+  var svg = document.createElement("svg");
+  svg.id = "sunchart";
+  parentSunburst.appendChild(svg);
+
+  svg = d3
+    .select("#sunchart")
+    .append("svg")
+    .style("width", width)
+    .style("height", width)
+    .style("font", "10px sans-serif");
+  const g = svg
+    .append("g")
+    .attr("transform", `translate(${width / 2},${width / 2})`);
+  const path = g
+    .append("g")
+    .selectAll("path")
+    .data(root.descendants().slice(1))
+    .enter()
+    .append("path")
+    .attr("fill", (d) => {
+      while (d.depth > 1) d = d.parent;
+      return color(d.data.name);
+    })
+    .attr("fill-opacity", (d) =>
+      arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0
+    )
+    .attr("d", (d) => arc(d.current));
+
+  path
+    .filter((d) => d.children)
+    .style("cursor", "pointer")
+    .on("click", clicked);
+
+  path.append("title").text(
+    (d) =>
+      `${d
+        .ancestors()
+        .map((d) => d.data.name)
+        .reverse()
+        .join("/")}\n${format(d.value)}`
+  );
+
+  const label = g
+    .append("g")
+    .attr("pointer-events", "none")
+    .attr("text-anchor", "middle")
+    .style("user-select", "none")
+    .selectAll("text")
+    .data(root.descendants().slice(1))
+    .enter()
+    .append("text")
+    .attr("dy", "0.35em")
+    .attr("fill-opacity", (d) => +labelVisible(d.current))
+    .attr("transform", (d) => labelTransform(d.current))
+    .text((d) => d.data.name);
+
+  const parent = g
+    .append("circle")
+    .datum(root)
+    .attr("r", radius)
+    .attr("fill", "none")
+    .attr("pointer-events", "all")
+    .on("click", clicked);
+
+  function clicked(p) {
+    parent.datum(p.parent || root);
+
+    root.each(
+      (d) =>
+        (d.target = {
+          x0:
+            Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) *
+            2 *
+            Math.PI,
+          x1:
+            Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) *
+            2 *
+            Math.PI,
+          y0: Math.max(0, d.y0 - p.depth),
+          y1: Math.max(0, d.y1 - p.depth),
+        })
+    );
+
+    const t = g.transition().duration(750);
+
+    path
+      .transition(t)
+      .tween("data", (d) => {
+        const i = d3.interpolate(d.current, d.target);
+        return (t) => (d.current = i(t));
+      })
+      .filter(function (d) {
+        return +this.getAttribute("fill-opacity") || arcVisible(d.target);
+      })
+      .attr("fill-opacity", (d) =>
+        arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0
+      )
+      .attrTween("d", (d) => () => arc(d.current));
+
+    label
+      .filter(function (d) {
+        return +this.getAttribute("fill-opacity") || labelVisible(d.target);
+      })
+      .transition(t)
+      .attr("fill-opacity", (d) => +labelVisible(d.target))
+      .attrTween("transform", (d) => () => labelTransform(d.current));
+  }
+
+  function arcVisible(d) {
+    return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
+  }
+
+  function labelVisible(d) {
+    return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
+  }
+
+  function labelTransform(d) {
+    const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
+    const y = ((d.y0 + d.y1) / 2) * radius;
+    return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+  }
+
+  d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+}
+
 function displayBarChart() {
   console.log("here");
   var margin = { top: 10, right: 30, bottom: 20, left: 30 },
@@ -407,30 +723,6 @@ function displayBarChart() {
         return color(d.key);
       });
       */
-  });
-}
-
-function formatData() {
-  d3.csv("data.csv", function (data) {
-    var root = d3
-      .hierarchy(
-        {
-          values: d3
-            .nest()
-            .key(function (d) {
-              return d.City;
-            })
-            .entries(data),
-        },
-        function (d) {
-          return d.values;
-        }
-      )
-      .sum(function (d) {
-        return d.Rating;
-      });
-
-    console.log(root);
   });
 }
 

@@ -18,6 +18,7 @@ function openFilters() {
       // console.log(evt.target.id);
       // console.log(params);
       displayData(evt.target.id, params);
+      displayData2(evt.target.id, params);
     });
 }
 
