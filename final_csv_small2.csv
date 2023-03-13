@@ -1,4 +1,4 @@
-﻿Column1,Unnamed: 0,Name,City,Cuisine Style,Ranking,Rating,Price Range,Number of Reviews,Reviews,URL_TA,ID_TA,lat,lng
+﻿Column1,Unnamed: 0,Name,City,CuisineStyle,Ranking,Rating,PriceRange,NumberofReviews,Reviews,URL_TA,ID_TA,lat,lng
 0,0,Martine of Martine's Table,Amsterdam,French',1,5,$$ - $$$,136,"[['Just like home', 'A Warm Welcome to Wintry Amsterdam'], ['01/03/2018', '01/01/2018']]",/Restaurant_Review-g188590-d11752080-Reviews-Martine_of_Martine_s_Table-Amsterdam_North_Holland_Province.html,d11752080,52.37501,4.89992
 0,0,Martine of Martine's Table,Amsterdam, 'Dutch',1,5,$$ - $$$,136,"[['Just like home', 'A Warm Welcome to Wintry Amsterdam'], ['01/03/2018', '01/01/2018']]",/Restaurant_Review-g188590-d11752080-Reviews-Martine_of_Martine_s_Table-Amsterdam_North_Holland_Province.html,d11752080,52.37501,4.89992
 0,0,Martine of Martine's Table,Amsterdam, 'European',1,5,$$ - $$$,136,"[['Just like home', 'A Warm Welcome to Wintry Amsterdam'], ['01/03/2018', '01/01/2018']]",/Restaurant_Review-g188590-d11752080-Reviews-Martine_of_Martine_s_Table-Amsterdam_North_Holland_Province.html,d11752080,52.37501,4.89992

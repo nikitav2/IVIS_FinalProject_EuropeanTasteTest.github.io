@@ -8,7 +8,7 @@ function openFilters() {
   $(".chosen-select")
     .chosen({
       no_results_text: "Nothing found",
-      max_selected_options: 4,
+      // max_selected_options: 4,
     })
     .bind("chosen:maxselected", function () {
       console.log("here");

@@ -146,7 +146,7 @@ function displayData(evt, params) {
       document.getElementById("instructions").style.visibility = "hidden";
     }
 
-    d3.csv("final_reduced.csv", function (i, totalData) {
+    d3.csv("rest10.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
         var isValidCity = false;
         var isValidPrice = false;
@@ -320,7 +320,7 @@ function displayData2(evt, params) {
     // console.log("city is present");
     document.getElementById("instructions").style.visibility = "hidden";
 
-    d3.csv("final_csv_small2.csv", function (i, totalData) {
+    d3.csv("final_csv_small3.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
         var isValidCity = false;
         var isValidPrice = false;
