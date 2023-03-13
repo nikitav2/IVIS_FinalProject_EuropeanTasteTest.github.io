@@ -42,7 +42,7 @@
         <map>
             <div id="map"></div>
             <script src="openviewmap.js"></script>
-          </map>
+        </map>
 
 
         <script src="filter.js"></script>
@@ -52,7 +52,10 @@
         <div class="filter_btn_wrapper">
             <button class ="open_table_btn" onclick="scrollToTable()">View Table</button>
         </div>
-        <section stle="height:750p">
+        <div id="table_popups" class="popup" style="position: absolute;top:200px;left:400px">
+            <span class="popuptext" id="myPopupTable">Added to Table</span>
+        </div>
+        <section>
 
         <!-- <map>
         <div id="map"></div>
@@ -165,6 +168,9 @@
             <!-- Table section -->
             <div class = "comparable table content_inside content_inside_active">
                 <b style="font-size:x-large">Compare Restaurants</b>
+                <!-- <div class="popup">
+                    <span class="popuptext" id="myPopup">simple popup</span>
+                  </div> -->
                 <table id = "compareVals" class="tablevalues">
                     <thead>
                         <tr>
@@ -172,7 +178,6 @@
                             <th>Cuisines</th>
                             <th>Rating</th>
                             <th>Price Range</th>
-                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>

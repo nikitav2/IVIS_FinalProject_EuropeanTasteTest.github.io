@@ -231,11 +231,10 @@ function displayData(evt, params) {
         ];
 
         var clicked_content =
-          '<div id="content">' +
+          '<div id="content" style="overflow-y:scroll;overflow-x:scroll">' +
           "<h1>" +
           name +
           "</h1>" +
-          "</div>" +
           "<div>" +
           "<span>" +
           "<b>Cuisines offered:</b> " +
@@ -274,6 +273,7 @@ function displayData(evt, params) {
           "</div>";
 
         var hover_content = name;
+
         var marker = new L.marker([latValue, lonValue])
           // .addTo(map)
           .bindPopup(clicked_content)
@@ -727,6 +727,12 @@ function displayBarChart() {
 }
 
 function addToTable(values, clickedMarkers) {
+  var popupTable = document.getElementById("myPopupTable");
+  popupTable.classList.toggle("show");
+  setTimeout(function () {
+    popupTable.classList.toggle("show");
+  }, 2500);
+
   compareRows = compareRows + 1;
   var table = document.getElementById("compareVals");
   var row = table.insertRow(compareRows);
@@ -752,22 +758,29 @@ function addToTable(values, clickedMarkers) {
   favorite_button.id = fav_id_val;
   favorite_button.className = "favorite";
   favorite_button.append(favorite_icon);
-  // favorite_button.innerText = "Favorite";
+
+  const fav_popup = document.createElement("div");
+  fav_popup.className = "popup";
+  const fav_span = document.createElement("span");
+  fav_span.className = "popuptext";
+  fav_span.id = "myPopup";
+  fav_span.innerHTML = "Added to favorites";
+  fav_popup.appendChild(fav_span);
 
   var nameCell = row.insertCell(0);
   var cuisineCell = row.insertCell(1);
   var ratingCell = row.insertCell(2);
   var priceRangeCell = row.insertCell(3);
-  var taCell = row.insertCell(4);
 
+  row.appendChild(fav_popup);
   row.appendChild(favorite_button);
   row.appendChild(delete_button);
 
-  nameCell.innerHTML = values[0];
+  // nameCell.innerHTML = values[0];
   cuisineCell.innerHTML = values[3];
   ratingCell.innerHTML = values[4];
   priceRangeCell.innerHTML = values[5];
-  taCell.innerHTML =
+  nameCell.innerHTML =
     "<a href = https://" +
     values[7] +
     ' target= "_blank" rel="noreferrer">' +
@@ -779,7 +792,6 @@ function addToTable(values, clickedMarkers) {
 
     if (!favoriteName.includes(restName)) {
       favoriteName.push(restName);
-      // console.log("here");
       var fav = document.createElement("div");
       fav.className = "favoriteRow";
       fav.id = "fav" + restName;
@@ -795,9 +807,17 @@ function addToTable(values, clickedMarkers) {
       fav.appendChild(delete_fav);
       document.getElementById("favorite-section").appendChild(fav);
 
+      var popup = document.getElementById("myPopup");
+
+      popup.classList.toggle("show");
+      setTimeout(function () {
+        popup.classList.toggle("show");
+      }, 2000);
+
       delete_fav.addEventListener("click", () => {
         favoriteName.splice(favoriteName.indexOf(restName), 1);
         document.getElementById(fav.id).remove();
+        displayData("favorites", "");
       });
     }
   });

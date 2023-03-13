@@ -321,7 +321,7 @@ html {
 }
 
 .delete {
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   background-color: #CFDEE2; 
   border: none;
   border-radius: 30px;
@@ -360,16 +360,20 @@ html {
 }
 
 .favoriteRow {
-  width:80%;
+  display: flex;
+  flex:1;
+  width:97%;
+  flex-direction: row;
+  border-bottom: #CC5643;
+  text-align: left;
   padding-left:10px;
+  padding-right:10px;
   padding-top:5px;
+  border-radius: 10px;
   padding-bottom:5px;
   margin-bottom: 10px;
-  border-radius: 10px;
-  background-color: #2fb1d5;
-  flex-direction: row;
-  display: block;
-  flex:1;
+  background-color: #2fb1d5; 
+
 }
 
 .delete_fav {
@@ -388,7 +392,7 @@ html {
 
 
 .favorite {
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   background-color: #CFDEE2; 
   border: none;
   border-radius: 30px;
@@ -710,5 +714,59 @@ body {
   transform: translateY(-5px);
 }
 
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #264f5f;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #264f5f transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
 
