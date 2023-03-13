@@ -381,7 +381,7 @@ function displayData2(evt, params) {
 function createSunBurst(filteredData) {
   document.getElementById("sunchart").remove();
 
-  d3.select("#sunchart").remove();
+  d3.select("#sunchart").selectAll("*").remove();
 
   console.log("filtereData length from sunburst: ", filteredData.length);
   console.log(filteredData);
@@ -465,7 +465,8 @@ function createSunBurst(filteredData) {
   root.each((d) => (d.current = d));
   // const svg = d3.select(DOM.svg(width, width))
 
-  var parentSunburst = document.getElementById("sunburst_parent");
+  // var parentSunburst = document.getElementById("sunburst_parent");
+  var parentSunburst = document.getElementById("sunchart_container");
 
   var svg = document.createElement("svg");
   svg.id = "sunchart";
@@ -757,6 +758,7 @@ function addToTable(values, clickedMarkers) {
   var cuisineCell = row.insertCell(1);
   var ratingCell = row.insertCell(2);
   var priceRangeCell = row.insertCell(3);
+  var taCell = row.insertCell(4);
 
   row.appendChild(favorite_button);
   row.appendChild(delete_button);
@@ -765,6 +767,12 @@ function addToTable(values, clickedMarkers) {
   cuisineCell.innerHTML = values[3];
   ratingCell.innerHTML = values[4];
   priceRangeCell.innerHTML = values[5];
+  taCell.innerHTML =
+    "<a href = https://" +
+    values[7] +
+    ' target= "_blank" rel="noreferrer">' +
+    values[0] +
+    "</a>";
 
   favorite_button.addEventListener("click", () => {
     var restName = values[0];
