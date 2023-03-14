@@ -218,6 +218,7 @@ function displayData(evt, params) {
         var price = element.PriceRange;
         var num_reviews = Number(element.NumberofReviews).toFixed(0);
         var trip_advisor_link = "www.tripadvisor.com" + element.URL_TA;
+        var city = element.City;
 
         var values = [
           name,
@@ -228,6 +229,7 @@ function displayData(evt, params) {
           price,
           num_reviews,
           trip_advisor_link,
+          city,
         ];
 
         var clicked_content =
@@ -768,9 +770,10 @@ function addToTable(values, clickedMarkers) {
   fav_popup.appendChild(fav_span);
 
   var nameCell = row.insertCell(0);
-  var cuisineCell = row.insertCell(1);
-  var ratingCell = row.insertCell(2);
-  var priceRangeCell = row.insertCell(3);
+  var cityCell = row.insertCell(1);
+  var cuisineCell = row.insertCell(2);
+  var ratingCell = row.insertCell(3);
+  var priceRangeCell = row.insertCell(4);
 
   row.appendChild(fav_popup);
   row.appendChild(favorite_button);
@@ -778,6 +781,7 @@ function addToTable(values, clickedMarkers) {
 
   // nameCell.innerHTML = values[0];
   cuisineCell.innerHTML = values[3];
+  cityCell.innerHTML = values[8];
   ratingCell.innerHTML = values[4];
   priceRangeCell.innerHTML = values[5];
   nameCell.innerHTML =
