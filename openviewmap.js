@@ -51,10 +51,10 @@ function parseCuisine(cuisineVal) {
 }
 
 function parseCuisine2(cuisineVal) {
-  cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
+  // cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
   cuisineVal = cuisineVal.replaceAll(" Options", "");
   cuisineVal = cuisineVal.replaceAll(" Friendly", "");
-  cuisineVal = cuisineVal.replaceAll("'", "");
+  // cuisineVal = cuisineVal.replaceAll("'", "");
   // cuisineVal = cuisineVal.split(", ");
   // console.log("in parseCuisine: ", cuisineVal);
   return cuisineVal;
@@ -322,7 +322,7 @@ function displayData2(evt, params) {
     // console.log("city is present");
     document.getElementById("instructions").style.visibility = "hidden";
 
-    d3.csv("final_csv_small2.csv", function (i, totalData) {
+    d3.csv("final_csv_small3.csv", function (i, totalData) {
       var filteredData = totalData.filter(function (rest) {
         var isValidCity = false;
         var isValidPrice = false;
