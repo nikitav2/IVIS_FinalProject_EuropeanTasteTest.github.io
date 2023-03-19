@@ -336,6 +336,22 @@ html {
   margin-left:10%;
 }
 
+.addToTableButton {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #CC5643; 
+  border: none;
+  border-radius: 15px;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+
 .view_favorites {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   background-color: #d9ea5a; 
@@ -741,18 +757,6 @@ body {
   left: 50%;
   margin-left: -80px;
 }
-
-/* Popup arrow */
-/* .popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #264f5f transparent transparent transparent;
-} */
 
 /* Toggle this class - hide and show the popup */
 .popup .show {

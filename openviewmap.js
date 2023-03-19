@@ -31,6 +31,7 @@ var markers = L.layerGroup();
 
 var compareRows = 0;
 var clickedMarkers = [];
+// var values = [];
 var isCityPresent = false;
 
 var cityFilterValues = [];
@@ -46,17 +47,13 @@ function parseCuisine(cuisineVal) {
   cuisineVal = cuisineVal.replaceAll(" Friendly", "");
   cuisineVal = cuisineVal.replaceAll("'", "");
   cuisineVal = cuisineVal.split(", ");
-  // console.log("in parseCuisine: ", cuisineVal);
+
   return cuisineVal;
 }
 
 function parseCuisine2(cuisineVal) {
-  // cuisineVal = cuisineVal.substring(1, cuisineVal.length - 1);
   cuisineVal = cuisineVal.replaceAll(" Options", "");
   cuisineVal = cuisineVal.replaceAll(" Friendly", "");
-  // cuisineVal = cuisineVal.replaceAll("'", "");
-  // cuisineVal = cuisineVal.split(", ");
-  // console.log("in parseCuisine: ", cuisineVal);
   return cuisineVal;
 }
 
@@ -110,29 +107,19 @@ function parseArg(evt, params) {
       cuisineFilterValues.splice(cuisineFilterValues.indexOf(value), 1);
     }
   }
-  // console.log(cityFilterValues);
-  // console.log(priceFilterValues);
-  // console.log(dietaryFilterValues);
-  // console.log(ratingFilterValues);
-  // console.log(cuisineFilterValues);
 }
 
 function displayData(evt, params) {
-  // console.log("in display data");
   var isDisplayFavorites = false;
-  // console.log(evt);
   if (evt == "favorites") {
     isDisplayFavorites = true;
-    // console.log(evt, isDisplayFavorites);
   } else {
     parseArg(evt, params);
   }
 
   markers.clearLayers();
-  // console.log(isDisplayFavorites);
 
   if (document.getElementById("city-filters").value == "") {
-    // console.log("no cities");
     document.getElementById("instructions").style.visibility = "visible";
     isCityPresent = false;
   }
@@ -158,7 +145,6 @@ function displayData(evt, params) {
 
         if (isDisplayFavorites) {
           if (favoriteName.includes(rest.Name)) {
-            console.log("display favorites in here: ", favoriteName);
             return true;
           }
         } else {
@@ -201,12 +187,6 @@ function displayData(evt, params) {
         }
       });
 
-      // console.log(totalData[3]);
-      // console.log(filteredData[3]);
-      console.log("\n\n\n");
-      console.log("filtereData length from filters: ", filteredData.length);
-      console.log(filteredData);
-
       filteredData.forEach(function (element) {
         var latValue = parseFloat(element.lat);
         var lonValue = parseFloat(element.lng);
@@ -232,8 +212,15 @@ function displayData(evt, params) {
           city,
         ];
 
+        var add_id = "addButton" + name;
+
         var clicked_content =
           '<div id="content" style="overflow-y:scroll;overflow-x:scroll">' +
+          "<button id = " +
+          '"' +
+          add_id +
+          '"' +
+          " class='addToTableButton'>Add to Table</button> " +
           "<h1>" +
           name +
           "</h1>" +
@@ -277,13 +264,15 @@ function displayData(evt, params) {
         var hover_content = name;
 
         var marker = new L.marker([latValue, lonValue])
-          // .addTo(map)
+
           .bindPopup(clicked_content)
           .on("click", function (e) {
-            // console.log(clicked_content);
             if (!clickedMarkers.includes(hover_content)) {
-              clickedMarkers.push(hover_content);
-              addToTable(values, clickedMarkers);
+              var currAddButton = document.getElementById(add_id);
+
+              currAddButton.onclick = function () {
+                addToTable(values, clickedMarkers);
+              };
             }
           });
 
@@ -297,12 +286,10 @@ function displayData(evt, params) {
 }
 
 function displayData2(evt, params) {
-  // console.log("in display data");
   var isDisplayFavorites = false;
-  // console.log(evt);
+
   if (evt == "favorites") {
     isDisplayFavorites = true;
-    // console.log(evt, isDisplayFavorites);
   } else {
     parseArg(evt, params);
   }
@@ -311,15 +298,13 @@ function displayData2(evt, params) {
     document.getElementById("city-filters").value == "" &&
     !isDisplayFavorites
   ) {
-    // console.log("no cities");
     document.getElementById("instructions").style.visibility = "visible";
   } else if (
     isDisplayFavorites == true ||
     document.getElementById("city-filters").value != ""
   ) {
     isCityPresent = true;
-    // console.log("in second part of is");
-    // console.log("city is present");
+
     document.getElementById("instructions").style.visibility = "hidden";
 
     d3.csv("final_csv_small3.csv", function (i, totalData) {
@@ -331,7 +316,6 @@ function displayData2(evt, params) {
         var isValidDiet = false;
 
         if (isDisplayFavorites) {
-          // console.log("display favorites in here");
           if (favoriteName.includes(rest.Name)) {
             return true;
           }
@@ -374,7 +358,7 @@ function displayData2(evt, params) {
           isValidCuisine
         );
       });
-      // console.log(filteredData);
+
       createSunBurst(filteredData);
     });
   }
@@ -384,9 +368,6 @@ function createSunBurst(filteredData) {
   document.getElementById("sunchart").remove();
 
   d3.select("#sunchart").selectAll("*").remove();
-
-  console.log("filtereData length from sunburst: ", filteredData.length);
-  console.log(filteredData);
 
   var nest = d3
     .nest()
@@ -437,8 +418,7 @@ function createSunBurst(filteredData) {
         }), //end of map(function(region){
       };
     }), //end of map(function(major){
-  }; //end of var declaration
-  // console.log(data);
+  };
 
   var partition = (data) => {
     const root = d3
@@ -447,6 +427,7 @@ function createSunBurst(filteredData) {
       .sort((a, b) => b.value - a.value);
     return d3.partition().size([2 * Math.PI, root.height + 1])(root);
   };
+
   var color = d3
     .scaleOrdinal()
     .range(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
@@ -463,7 +444,7 @@ function createSunBurst(filteredData) {
     .innerRadius((d) => d.y0 * radius)
     .outerRadius((d) => Math.max(d.y0 * radius, d.y1 * radius - 1));
   const root = partition(data);
-  // console.log(root);
+
   root.each((d) => (d.current = d));
   // const svg = d3.select(DOM.svg(width, width))
 
@@ -601,7 +582,6 @@ function createSunBurst(filteredData) {
 }
 
 function displayBarChart() {
-  console.log("here");
   var margin = { top: 10, right: 30, bottom: 20, left: 30 },
     width = 500,
     height = 500;
@@ -618,8 +598,6 @@ function displayBarChart() {
   // Parse the Data
   d3.csv("data.csv", function (data) {
     var subgroups = data.columns.slice(1);
-    // console.log("in data: ", data.columns.slice(1));
-    console.log("in data: ", data.columns);
 
     var x = d3
       .scaleBand()
@@ -729,12 +707,10 @@ function displayBarChart() {
 }
 
 function addToTable(values, clickedMarkers) {
-  var popupTable = document.getElementById("myPopupTable");
-  popupTable.classList.toggle("show");
-  setTimeout(function () {
-    popupTable.classList.toggle("show");
-  }, 2500);
-
+  if (clickedMarkers.includes(values[0])) {
+    return;
+  }
+  clickedMarkers.push(values[0]);
   compareRows = compareRows + 1;
   var table = document.getElementById("compareVals");
   var row = table.insertRow(compareRows);
